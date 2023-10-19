@@ -1,15 +1,9 @@
-// generates inputs with label and wrapper
-// generates text inputs by default
+// creates text area field with label and their wrapper
 
-const createInputField = (
-  labelText,
-  props = {
-    type: "text",
-  }
-) => {
+const createTextareaField = (labelText, props) => {
   const wrapperEl = document.createElement("p");
   const labelEl = document.createElement("label");
-  const inputEl = document.createElement("input");
+  const textareaEl = document.createElement("textarea");
 
   if (props.id) labelEl.setAttribute("for", props.id);
   if (labelText) labelEl.textContent = labelText;
@@ -17,22 +11,22 @@ const createInputField = (
   wrapperEl.classList.add("input-wrapper");
   labelEl.classList.add("input-label");
 
-  // set classes and attributes on the input element
   for (const key in props) {
     const value = props[key];
 
+    // add classes and attributes to textarea element
     if (key === "class" && Array.isArray(value)) {
-      inputEl.classList.add(...value);
+      textareaEl.classList.add(...value);
     } else if (key === "class" && !Array.isArray(value)) {
-      inputEl.classList.add(value);
+      textareaEl.classList.add(value);
     } else if (key !== "class") {
-      inputEl.setAttribute(key, value);
+      textareaEl.setAttribute(key, value);
     }
   }
 
-  wrapperEl.append(labelEl, inputEl);
+  wrapperEl.append(labelEl, textareaEl);
 
   return wrapperEl;
 };
 
-export default createInputField;
+export default createTextareaField;
