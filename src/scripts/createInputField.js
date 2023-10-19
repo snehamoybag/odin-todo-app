@@ -1,12 +1,7 @@
 // generates inputs with label and wrapper
 // generates text inputs by default
 
-const createInputField = (
-  labelText,
-  props = {
-    type: "text",
-  }
-) => {
+const createInputField = (labelText, props) => {
   const wrapperEl = document.createElement("p");
   const labelEl = document.createElement("label");
   const inputEl = document.createElement("input");
@@ -16,6 +11,9 @@ const createInputField = (
 
   wrapperEl.classList.add("input-wrapper");
   labelEl.classList.add("input-label");
+
+  // input type to text if type is not specified
+  if (!props.type) inputEl.setAttribute("type", "text");
 
   // set classes and attributes on the input element
   for (const key in props) {
