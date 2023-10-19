@@ -14,3 +14,12 @@
 - checked or expired todos goes to archive tab and stays there for only a week
 - delete single items from archive or completely empty out archives at once
 - sort todos by due date or priority
+
+### current task
+
+- get data from user
+- use that data to make a todo object
+- save that object to the list of todos
+- store the object to local storage
+- get the stored todos from localstorage
+- render the todo list

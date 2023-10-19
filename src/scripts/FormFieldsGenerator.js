@@ -43,7 +43,7 @@ const FormFieldsGenerator = () => {
     if (!props.type) inputEl.setAttribute("type", "text");
 
     _setAttributeAndClass(inputEl, props);
-    console.log(wrapperEl);
+
     wrapperEl.append(labelEl, inputEl);
 
     return wrapperEl;
@@ -56,7 +56,7 @@ const FormFieldsGenerator = () => {
     const textareaEl = document.createElement("textarea");
 
     _setAttributeAndClass(textareaEl, props);
-    console.log(wrapperEl);
+
     wrapperEl.append(labelEl, textareaEl);
 
     return wrapperEl;
