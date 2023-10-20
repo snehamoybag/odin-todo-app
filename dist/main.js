@@ -116,7 +116,37 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction App() {\r\n  const containerEl = document.createElement(\"div\");\r\n\r\n  return containerEl;\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/App.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _components_TodoFormDialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/TodoFormDialog */ \"./src/components/TodoFormDialog.js\");\n/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Header */ \"./src/components/Header.js\");\n\r\n\r\n\r\nfunction App() {\r\n  const containerEl = document.createElement(\"div\");\r\n\r\n  containerEl.append(_components_TodoFormDialog__WEBPACK_IMPORTED_MODULE_0__.todoFormDialogEl, (0,_components_Header__WEBPACK_IMPORTED_MODULE_1__[\"default\"])());\r\n\r\n  return containerEl;\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/App.js?");
+
+/***/ }),
+
+/***/ "./src/components/Header.js":
+/*!**********************************!*\
+  !*** ./src/components/Header.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _assets_logo_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/logo.svg */ \"./src/assets/logo.svg\");\n/* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Nav */ \"./src/components/Nav.js\");\n\r\n\r\n\r\nconst Header = () => {\r\n  const headerEl = document.createElement(\"header\");\r\n  const logoWrapperEl = document.createElement(\"div\");\r\n  const logoImg = new Image();\r\n  const logoTextEl = document.createElement(\"h2\");\r\n\r\n  logoImg.src = _assets_logo_svg__WEBPACK_IMPORTED_MODULE_0__;\r\n  logoImg.alt = \"Logo\";\r\n\r\n  logoWrapperEl.classList.add(\"logo\");\r\n  logoImg.classList.add(\"logo__img\");\r\n  logoTextEl.classList.add(\"logo__text\");\r\n\r\n  logoTextEl.textContent = \"TODO APP\";\r\n\r\n  logoWrapperEl.append(logoImg, logoTextEl);\r\n  headerEl.append(logoWrapperEl, (0,_Nav__WEBPACK_IMPORTED_MODULE_1__[\"default\"])());\r\n\r\n  return headerEl;\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/components/Header.js?");
+
+/***/ }),
+
+/***/ "./src/components/Nav.js":
+/*!*******************************!*\
+  !*** ./src/components/Nav.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _scripts_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts/attributeAndClassSetter */ \"./src/scripts/attributeAndClassSetter.js\");\n/* harmony import */ var _TodoFormDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TodoFormDialog */ \"./src/components/TodoFormDialog.js\");\n\r\n\r\n\r\nconst Nav = () => {\r\n  const _createListItem = (childElType, childText, childProps) => {\r\n    const liEl = document.createElement(\"li\");\r\n    const childEl = document.createElement(childElType);\r\n\r\n    liEl.classList.add(\"nav__list-item\");\r\n\r\n    if (childText) childEl.textContent = childText;\r\n\r\n    (0,_scripts_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(childEl, childProps);\r\n\r\n    liEl.append(childEl);\r\n\r\n    return liEl;\r\n  };\r\n\r\n  const navEl = document.createElement(\"nav\");\r\n  const navListEl = document.createElement(\"ul\");\r\n  const navLinkTexts = [\"All\", \"Today\", \"This Week\", \"Projects\", \"Archive\"];\r\n  const navItemsWithLinkEls = navLinkTexts.map((currentText) =>\r\n    _createListItem(\"a\", currentText, {\r\n      class: \"nav__link\",\r\n      href: \"#\",\r\n    })\r\n  );\r\n\r\n  navEl.setAttribute(\"id\", \"nav\");\r\n\r\n  navEl.classList.add(\"nav\");\r\n  navListEl.classList.add(\"nav__list\");\r\n\r\n  navListEl.append(...navItemsWithLinkEls);\r\n  navEl.append(navListEl, _TodoFormDialog__WEBPACK_IMPORTED_MODULE_1__.showTodoFormDialogButtonEl);\r\n\r\n  return navEl;\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Nav);\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/components/Nav.js?");
+
+/***/ }),
+
+/***/ "./src/components/TodoFormDialog.js":
+/*!******************************************!*\
+  !*** ./src/components/TodoFormDialog.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   showTodoFormDialogButtonEl: () => (/* binding */ showTodoFormDialogButtonEl),\n/* harmony export */   todoFormDialogEl: () => (/* binding */ todoFormDialogEl)\n/* harmony export */ });\n/* harmony import */ var _scripts_formFieldsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts/formFieldsGenerator */ \"./src/scripts/formFieldsGenerator.js\");\n/* harmony import */ var _scripts_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scripts/attributeAndClassSetter */ \"./src/scripts/attributeAndClassSetter.js\");\n\r\n\r\n\r\nconst TodoFormDialog = () => {\r\n  const _buttonElGenerator = (text, props) => {\r\n    const buttonEl = document.createElement(\"button\");\r\n\r\n    if (text) buttonEl.textContent = text;\r\n    (0,_scripts_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(buttonEl, props);\r\n\r\n    return buttonEl;\r\n  };\r\n\r\n  const todoFormDialogEl = document.createElement(\"dialog\");\r\n  const dialogTitleEl = document.createElement(\"h2\");\r\n  const formEl = document.createElement(\"form\");\r\n  const titleField = (0,_scripts_formFieldsGenerator__WEBPACK_IMPORTED_MODULE_0__.createInputField)(\"Title\", {\r\n    type: \"text\",\r\n    id: \"todo-title\",\r\n    name: \"todo-title\",\r\n  });\r\n  const textareaField = (0,_scripts_formFieldsGenerator__WEBPACK_IMPORTED_MODULE_0__.createTextareaField)(\"Description\", {\r\n    id: \"todo-description\",\r\n    name: \"todo-description\",\r\n  });\r\n  const btnWrapperEl = document.createElement(\"div\");\r\n  const addBtnEl = _buttonElGenerator(\"Add Task\", {\r\n    type: \"submit\",\r\n    id: \"add-task-btn\",\r\n    class: [\"btn\", \"btn--submit\"],\r\n  });\r\n  const cancelBtnEl = _buttonElGenerator(\"Cancel\", {\r\n    type: \"button\",\r\n    class: [\"btn\", \"btn--cancel\"],\r\n  });\r\n  const showTodoFormDialogButtonEl = _buttonElGenerator(\"Create A New Task\", {\r\n    type: \"button\",\r\n    id: \"open-todo-form-dialog-btn\",\r\n    class: [\"btn\", \"btn--open-todo-form-dialog\"],\r\n  });\r\n\r\n  formEl.setAttribute(\"id\", \"todo-form\");\r\n\r\n  todoFormDialogEl.classList.add(\"todo-dialog\");\r\n  dialogTitleEl.classList.add(\"todo-dialog__title\");\r\n  formEl.classList.add(\"todo-form\");\r\n  btnWrapperEl.classList.add(\"todo-form__btn-wrapper\");\r\n\r\n  dialogTitleEl.textContent = \"Create A New Task\";\r\n\r\n  formEl.addEventListener(\"submit\", (event) => {\r\n    event.preventDefault();\r\n    // add todo func here\r\n    todoFormDialogEl.close();\r\n    formEl.reset(); //  emptyies out all the form fields\r\n  });\r\n\r\n  cancelBtnEl.addEventListener(\"click\", () => {\r\n    todoFormDialogEl.close();\r\n    formEl.reset();\r\n  });\r\n\r\n  showTodoFormDialogButtonEl.addEventListener(\"click\", () =>\r\n    todoFormDialogEl.showModal()\r\n  );\r\n\r\n  btnWrapperEl.append(addBtnEl, cancelBtnEl);\r\n  formEl.append(titleField, textareaField, btnWrapperEl);\r\n  todoFormDialogEl.append(dialogTitleEl, formEl);\r\n\r\n  return {\r\n    todoFormDialogEl,\r\n    showTodoFormDialogButtonEl,\r\n  };\r\n};\r\n\r\nconst { todoFormDialogEl, showTodoFormDialogButtonEl } =\r\n  TodoFormDialog();\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/components/TodoFormDialog.js?");
 
 /***/ }),
 
@@ -127,6 +157,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App */ \"./src/App.js\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\r\n\r\n\r\n// add contents to the body before the script tag\r\ndocument.body.prepend((0,_App__WEBPACK_IMPORTED_MODULE_0__[\"default\"])());\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/scripts/attributeAndClassSetter.js":
+/*!************************************************!*\
+  !*** ./src/scripts/attributeAndClassSetter.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst attributeAndClassSetter = (elem, props) => {\r\n  for (const key in props) {\r\n    const value = props[key];\r\n\r\n    if (key === \"class\" && Array.isArray(value)) {\r\n      elem.classList.add(...value);\r\n    } else if (key === \"class\" && !Array.isArray(value)) {\r\n      elem.classList.add(value);\r\n    } else if (key !== \"class\") {\r\n      elem.setAttribute(key, value);\r\n    }\r\n  }\r\n};\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (attributeAndClassSetter);\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/scripts/attributeAndClassSetter.js?");
+
+/***/ }),
+
+/***/ "./src/scripts/formFieldsGenerator.js":
+/*!********************************************!*\
+  !*** ./src/scripts/formFieldsGenerator.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   createInputField: () => (/* binding */ createInputField),\n/* harmony export */   createTextareaField: () => (/* binding */ createTextareaField)\n/* harmony export */ });\n/* harmony import */ var _attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./attributeAndClassSetter */ \"./src/scripts/attributeAndClassSetter.js\");\n\r\n\r\n// generates form fields with its wrappers and label\r\nconst FormFieldsGenerator = () => {\r\n  const _createWrapperEl = () => {\r\n    const wrapperEl = document.createElement(\"p\");\r\n\r\n    wrapperEl.classList.add(\"input-wrapper\");\r\n\r\n    return wrapperEl;\r\n  };\r\n\r\n  const _createLabelEl = (id, text) => {\r\n    const labelEl = document.createElement(\"label\");\r\n\r\n    if (id) labelEl.setAttribute(\"for\", id);\r\n    if (text) labelEl.textContent = text;\r\n\r\n    labelEl.classList.add(\"input-label\");\r\n\r\n    return labelEl;\r\n  };\r\n\r\n  const createInputField = (labelText, props) => {\r\n    const wrapperEl = _createWrapperEl();\r\n    const labelEl = _createLabelEl(props.id, labelText);\r\n    const inputEl = document.createElement(\"input\");\r\n\r\n    // input type to text by default, if type is not specified\r\n    if (!props.type) inputEl.setAttribute(\"type\", \"text\");\r\n\r\n    (0,_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(inputEl, props);\r\n\r\n    wrapperEl.append(labelEl, inputEl);\r\n\r\n    return wrapperEl;\r\n  };\r\n\r\n  const createTextareaField = (labelText, props) => {\r\n    const wrapperEl = _createWrapperEl();\r\n    const labelEl = _createLabelEl(props.id, labelText);\r\n\r\n    const textareaEl = document.createElement(\"textarea\");\r\n\r\n    (0,_attributeAndClassSetter__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(textareaEl, props);\r\n\r\n    wrapperEl.append(labelEl, textareaEl);\r\n\r\n    return wrapperEl;\r\n  };\r\n\r\n  return {\r\n    createInputField,\r\n    createTextareaField,\r\n  };\r\n};\r\n\r\nconst { createInputField, createTextareaField } = FormFieldsGenerator();\r\n\n\n//# sourceURL=webpack://odin-todo-app/./src/scripts/formFieldsGenerator.js?");
+
+/***/ }),
+
+/***/ "./src/assets/logo.svg":
+/*!*****************************!*\
+  !*** ./src/assets/logo.svg ***!
+  \*****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"12610eedea1636bad116.svg\";\n\n//# sourceURL=webpack://odin-todo-app/./src/assets/logo.svg?");
 
 /***/ })
 
@@ -181,6 +241,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -195,6 +267,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _App
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */

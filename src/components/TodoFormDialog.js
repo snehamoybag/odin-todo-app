@@ -2,9 +2,19 @@ import {
   createInputField,
   createTextareaField,
 } from "../scripts/formFieldsGenerator";
+import attributeAndClassSetter from "../scripts/attributeAndClassSetter";
 
-const TodoForm = () => {
-  const dialogEl = document.createElement("dialog");
+const TodoFormDialog = () => {
+  const _buttonElGenerator = (text, props) => {
+    const buttonEl = document.createElement("button");
+
+    if (text) buttonEl.textContent = text;
+    attributeAndClassSetter(buttonEl, props);
+
+    return buttonEl;
+  };
+
+  const todoFormDialogEl = document.createElement("dialog");
   const dialogTitleEl = document.createElement("h2");
   const formEl = document.createElement("form");
   const titleField = createInputField("Title", {
@@ -17,41 +27,55 @@ const TodoForm = () => {
     name: "todo-description",
   });
   const btnWrapperEl = document.createElement("div");
-  const addBtnEl = document.createElement("button");
-  const cancelBtnEl = document.createElement("button");
+  const addBtnEl = _buttonElGenerator("Add Task", {
+    type: "submit",
+    id: "add-task-btn",
+    class: ["btn", "btn--submit"],
+  });
+  const cancelBtnEl = _buttonElGenerator("Cancel", {
+    type: "button",
+    class: ["btn", "btn--cancel"],
+  });
+  const showTodoFormDialogButtonEl = _buttonElGenerator("Create A New Task", {
+    type: "button",
+    id: "open-todo-form-dialog-btn",
+    class: ["btn", "btn--open-todo-form-dialog"],
+  });
 
   formEl.setAttribute("id", "todo-form");
-  addBtnEl.setAttribute("type", "submit");
-  cancelBtnEl.setAttribute("type", "button");
 
-  dialogEl.classList.add("todo-dialog");
+  todoFormDialogEl.classList.add("todo-dialog");
   dialogTitleEl.classList.add("todo-dialog__title");
   formEl.classList.add("todo-form");
   btnWrapperEl.classList.add("todo-form__btn-wrapper");
-  addBtnEl.classList.add("btn", "btn--submit");
-  cancelBtnEl.classList.add("btn", "btn--cancel");
 
   dialogTitleEl.textContent = "Create A New Task";
-  addBtnEl.textContent = "Add Task";
-  cancelBtnEl.textContent = "Cancel";
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
     // add todo func here
-    dialogEl.close();
+    todoFormDialogEl.close();
     formEl.reset(); //  emptyies out all the form fields
   });
 
   cancelBtnEl.addEventListener("click", () => {
-    dialogEl.close();
+    todoFormDialogEl.close();
     formEl.reset();
   });
 
+  showTodoFormDialogButtonEl.addEventListener("click", () =>
+    todoFormDialogEl.showModal()
+  );
+
   btnWrapperEl.append(addBtnEl, cancelBtnEl);
   formEl.append(titleField, textareaField, btnWrapperEl);
-  dialogEl.append(dialogTitleEl, formEl);
+  todoFormDialogEl.append(dialogTitleEl, formEl);
 
-  return dialogEl;
+  return {
+    todoFormDialogEl,
+    showTodoFormDialogButtonEl,
+  };
 };
 
-export default TodoForm;
+export const { todoFormDialogEl, showTodoFormDialogButtonEl } =
+  TodoFormDialog();
