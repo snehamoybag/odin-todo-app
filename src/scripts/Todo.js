@@ -1,31 +1,31 @@
 const Todo = () => {
   let _todos = [];
-  const storageKeyName = "todos";
+  const _storegeKeyName = "todos";
 
-  const storeTodos = () => {
-    localStorage.setItem(storageKeyName, JSON.stringify(_todos));
+  const _storeTodos = () => {
+    localStorage.setItem(_storegeKeyName, JSON.stringify(_todos));
   };
 
   const getTodos = () => {
-    const storedTodos = JSON.parse(localStorage.getItem(storageKeyName));
+    const storedTodos = JSON.parse(localStorage.getItem(_storegeKeyName));
 
     if (Array.isArray(storedTodos)) {
       _todos = storedTodos;
       return _todos;
     }
 
-    return null;
+    return [];
   };
 
   const addATodo = (todoObj) => {
     _todos.unshift(todoObj); // adds at the beginning
+    _storeTodos();
   };
 
   return {
-    storeTodos,
     getTodos,
     addATodo,
   };
 };
 
-export const { storeTodos, getTodos, addATodo } = Todo();
+export const { getTodos, addATodo } = Todo();

@@ -3,8 +3,20 @@ import {
   createTextareaField,
 } from "../scripts/formFieldsGenerator";
 import attributeAndClassSetter from "../scripts/attributeAndClassSetter";
+import { addATodo } from "../scripts/Todo";
 
 const TodoFormDialog = () => {
+  const _createATodoObj = (formEl) => {
+    const allFields = formEl.querySelectorAll("[name]"); // gets all fields that has a name attribute
+    const todoObj = {};
+
+    allFields.forEach((field) => {
+      todoObj[field.name] = field.value;
+    });
+
+    return todoObj;
+  };
+
   const _buttonElGenerator = (text, props) => {
     const buttonEl = document.createElement("button");
 
@@ -21,10 +33,12 @@ const TodoFormDialog = () => {
     type: "text",
     id: "todo-title",
     name: "todo-title",
+    required: true,
   });
-  const textareaField = createTextareaField("Description", {
+  const descriptionField = createTextareaField("Description", {
     id: "todo-description",
     name: "todo-description",
+    required: true,
   });
   const btnWrapperEl = document.createElement("div");
   const addBtnEl = _buttonElGenerator("Add Task", {
@@ -53,7 +67,7 @@ const TodoFormDialog = () => {
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
-    // add todo func here
+    addATodo(_createATodoObj(formEl));
     todoFormDialogEl.close();
     formEl.reset(); //  emptyies out all the form fields
   });
@@ -68,7 +82,7 @@ const TodoFormDialog = () => {
   );
 
   btnWrapperEl.append(addBtnEl, cancelBtnEl);
-  formEl.append(titleField, textareaField, btnWrapperEl);
+  formEl.append(titleField, descriptionField, btnWrapperEl);
   todoFormDialogEl.append(dialogTitleEl, formEl);
 
   return {

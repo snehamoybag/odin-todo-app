@@ -1,38 +1,40 @@
 import attributeAndClassSetter from "../scripts/attributeAndClassSetter";
+import snakeCaseinator from "../scripts/snakeCaseinator";
 import { showTodoFormDialogButtonEl } from "./TodoFormDialog";
 
-const Nav = () => {
-  const _createListItem = (childElType, childText, childProps) => {
+const Nav = (swichTabFunc) => {
+  const navEl = document.createElement("nav");
+  const navListEl = document.createElement("ul");
+  const linkTexts = ["All", "Today", "This Week", "Project", "Archive"];
+
+  const listItemsWithLink = linkTexts.map((text) => {
     const liEl = document.createElement("li");
-    const childEl = document.createElement(childElType);
+    const linkEl = document.createElement("a");
+
+    attributeAndClassSetter(linkEl, {
+      id: snakeCaseinator(text),
+      class: "nav__link",
+      href: "#",
+    });
+
+    linkEl.textContent = text;
+
+    linkEl.addEventListener("click", () => {
+      console.log(linkEl.id);
+      swichTabFunc();
+    });
 
     liEl.classList.add("nav__list-item");
 
-    if (childText) childEl.textContent = childText;
-
-    attributeAndClassSetter(childEl, childProps);
-
-    liEl.append(childEl);
+    liEl.append(linkEl);
 
     return liEl;
-  };
+  });
 
-  const navEl = document.createElement("nav");
-  const navListEl = document.createElement("ul");
-  const navLinkTexts = ["All", "Today", "This Week", "Projects", "Archive"];
-  const navItemsWithLinkEls = navLinkTexts.map((currentText) =>
-    _createListItem("a", currentText, {
-      class: "nav__link",
-      href: "#",
-    })
-  );
-
-  navEl.setAttribute("id", "nav");
-
-  navEl.classList.add("nav");
+  attributeAndClassSetter(navEl, { id: "nav", class: "nav" });
   navListEl.classList.add("nav__list");
 
-  navListEl.append(...navItemsWithLinkEls);
+  navListEl.append(...listItemsWithLink);
   navEl.append(navListEl, showTodoFormDialogButtonEl);
 
   return navEl;
