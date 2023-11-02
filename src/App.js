@@ -1,12 +1,27 @@
-import { todoFormDialogEl } from "./components/TodoFormDialog";
-import Header from "./components/Header";
+import Logo from "./components/Logo";
+import Nav from "./components/Nav";
+import FormModal from "./components/FormModal";
+import DisplayTodoList from "./components/DisplayTodoList";
 
-function App() {
-  const containerEl = document.createElement("div");
+const App = () => {
+  const appContainerEl = document.createElement("div");
+  const headerEl = document.createElement("header");
+  const mainEl = document.createElement("main");
+  const openModalBtn = document.createElement("button");
 
-  containerEl.append(todoFormDialogEl, Header());
+  openModalBtn.textContent = "add new todo";
 
-  return containerEl;
-}
+  openModalBtn.addEventListener("click", () => {
+    const formModalEl = FormModal();
+    mainEl.append(formModalEl);
+    formModalEl.showModal();
+  });
+
+  headerEl.append(Logo(), Nav());
+  mainEl.append(openModalBtn, DisplayTodoList());
+  appContainerEl.append(headerEl, mainEl);
+
+  return appContainerEl;
+};
 
 export default App;

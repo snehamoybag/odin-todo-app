@@ -1,41 +1,42 @@
-import attributeAndClassSetter from "../scripts/attributeAndClassSetter";
-import snakeCaseinator from "../scripts/snakeCaseinator";
-import { showTodoFormDialogButtonEl } from "./TodoFormDialog";
+import { snakeCase, setElementProps } from "../scripts/utilities";
 
-const Nav = (swichTabFunc) => {
+const Nav = () => {
   const navEl = document.createElement("nav");
   const navListEl = document.createElement("ul");
-  const linkTexts = ["All", "Today", "This Week", "Project", "Archive"];
 
-  const listItemsWithLink = linkTexts.map((text) => {
-    const liEl = document.createElement("li");
-    const linkEl = document.createElement("a");
-
-    attributeAndClassSetter(linkEl, {
-      id: snakeCaseinator(text),
-      class: "nav__link",
-      href: "#",
-    });
-
-    linkEl.textContent = text;
-
-    linkEl.addEventListener("click", () => {
-      console.log(linkEl.id);
-      swichTabFunc();
-    });
-
-    liEl.classList.add("nav__list-item");
-
-    liEl.append(linkEl);
-
-    return liEl;
-  });
-
-  attributeAndClassSetter(navEl, { id: "nav", class: "nav" });
+  navEl.classList.add("nav");
   navListEl.classList.add("nav__list");
 
-  navListEl.append(...listItemsWithLink);
-  navEl.append(navListEl, showTodoFormDialogButtonEl);
+  const createNavLinkEl = (
+    linkText,
+    props = { id: snakeCase(linkText), class: "nav__link", href: "#" }
+  ) => {
+    const linkEl = document.createElement("a");
+
+    setElementProps(linkEl, props);
+    linkEl.textContent = linkText;
+
+    return linkEl;
+  };
+
+  const addToNavList = (el) => {
+    const litstItemEl = document.createElement("li");
+
+    litstItemEl.classList.add("nav__list_item");
+
+    litstItemEl.append(el);
+    navListEl.append(litstItemEl);
+  };
+
+  // create and add tab links to nav list
+  const listOfTabNames = ["All", "Today", "This Week", "Completed", "Archive"];
+
+  listOfTabNames.forEach((tabName) => {
+    const linkEl = createNavLinkEl(tabName);
+    addToNavList(linkEl);
+  });
+
+  navEl.append(navListEl);
 
   return navEl;
 };
