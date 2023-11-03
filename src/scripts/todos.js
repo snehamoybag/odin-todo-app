@@ -14,10 +14,18 @@ export const addTodo = (todoObj) => {
   _setTodos();
 };
 
-export const Todo = (title, description, priority, dueDate, inProject) => {
-  this.title = title;
-  this.description = description;
-  this.priority = priority;
-  this.dueDate = dueDate;
-  this.inProject = inProject;
+export const createTodoObj = (
+  title,
+  description,
+  priority,
+  dueDate,
+  inProject
+) => {
+  return {
+    title,
+    description,
+    priority,
+    dueDate,
+    inProject,
+  };
 };

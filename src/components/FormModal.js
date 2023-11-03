@@ -1,5 +1,5 @@
 import { inputField, textareaField } from "../scripts/formFieldGenerator";
-import { Todo, addTodo } from "../scripts/todos";
+import { createTodoObj, addTodo } from "../scripts/todos";
 import { getTodayDate } from "../scripts/dates";
 
 const FormModal = (
@@ -61,11 +61,16 @@ const FormModal = (
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const taskTitle = inputField.querySelector("[name=todo-title]").value;
-    const taskDescription = descriptionField.querySelector(
-      "[name=todo-description]"
+    const taskTitle = titleField.querySelector("input").value;
+    const taskDescription = descriptionField.querySelector("textarea").value;
+    const taskDueDate = dueDateField.querySelector("input").value;
+    const taskDueTime = dueTimeField.querySelector("input").value;
+    const task = createTodoObj(
+      taskTitle,
+      taskDescription,
+      taskDueDate,
+      taskDueTime
     );
-    const task = new Todo(taskTitle, taskDescription);
 
     addTodo(task);
     closeAndRemoveFormModal();
