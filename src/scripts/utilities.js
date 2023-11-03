@@ -13,6 +13,6 @@ export const setElementProps = (elm, props = {}) => {
 
 export const storeAndSyncData = (data, dataKey) => {
   localStorage.setItem(dataKey, JSON.stringify(data));
-  storageData = JSON.parse(localStorage.getItem(dataKey));
+  const storageData = JSON.parse(localStorage.getItem(dataKey));
   return storageData;
 };
