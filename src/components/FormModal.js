@@ -1,11 +1,17 @@
-import { inputField, textareaField } from "../scripts/formFieldGenerator";
+import {
+  getFieldsetEl,
+  inputField,
+  textareaField,
+} from "../scripts/formFieldGenerator";
 import { createTodoObj, addTodo } from "../scripts/todos";
 import { getTodayDate } from "../scripts/dates";
+import { snakeCase } from "../scripts/utilities";
 
 const FormModal = (
   title = "",
   description = "",
   dueDate = "",
+  dueTime = "",
   priority = ""
 ) => {
   const formModalEl = document.createElement("dialog");
@@ -36,8 +42,25 @@ const FormModal = (
     type: "time",
     id: "due-time",
     name: "todo-due-time",
-    value: "23:59",
+    value: dueTime || "23:59",
+    required: true,
   });
+  const dueDateAndTimeField = getFieldsetEl(
+    "Set Due Date & Time",
+    dueDateField,
+    dueTimeField
+  );
+  const priorityRadioEls = ["Low", "Mid", "High"].map((inputName) => {
+    return inputField(inputName, {
+      type: "radio",
+      id: `todo-priority-${snakeCase(inputName)}`,
+      name: "todo-priority",
+      value: snakeCase(inputName),
+      checked: snakeCase(inputName) === priority,
+      required: true,
+    });
+  });
+  const priorityField = getFieldsetEl("Set Priority", ...priorityRadioEls);
   const btnsWrapperEl = document.createElement("div");
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
@@ -65,13 +88,18 @@ const FormModal = (
     const taskDescription = descriptionField.querySelector("textarea").value;
     const taskDueDate = dueDateField.querySelector("input").value;
     const taskDueTime = dueTimeField.querySelector("input").value;
+    const taskPriority = priorityField.querySelector(
+      "input[name=todo-priority]:checked"
+    ).value;
     const task = createTodoObj(
       taskTitle,
       taskDescription,
       taskDueDate,
-      taskDueTime
+      taskDueTime,
+      taskPriority
     );
 
+    console.log(task);
     addTodo(task);
     closeAndRemoveFormModal();
   });
@@ -85,8 +113,8 @@ const FormModal = (
     formHeaderEl,
     titleField,
     descriptionField,
-    dueDateField,
-    dueTimeField,
+    dueDateAndTimeField,
+    priorityField,
     btnsWrapperEl
   );
   formModalEl.append(formEl);

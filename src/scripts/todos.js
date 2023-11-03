@@ -17,15 +17,17 @@ export const addTodo = (todoObj) => {
 export const createTodoObj = (
   title,
   description,
-  priority,
   dueDate,
+  dueTime,
+  priority,
   inProject
 ) => {
   return {
     title,
     description,
-    priority,
     dueDate,
+    dueTime,
+    priority,
     inProject,
   };
 };
