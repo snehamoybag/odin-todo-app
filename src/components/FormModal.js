@@ -3,9 +3,11 @@ import {
   inputField,
   textareaField,
 } from "../scripts/formFieldGenerator";
-import { createTodoObj, addTodo } from "../scripts/todos";
+import { createTodoObj, addTodo, renderAllTodos } from "../scripts/todos";
 import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
+import { todosContainerId } from "./TodosContainer";
+import Todo from "./Todo";
 
 const FormModal = (
   title = "",
@@ -102,6 +104,7 @@ const FormModal = (
     console.log(task);
     addTodo(task);
     closeAndRemoveFormModal();
+    renderAllTodos(Todo, document.querySelector(`#${todosContainerId}`));
   });
 
   cancelBtnEl.addEventListener("click", () => {
