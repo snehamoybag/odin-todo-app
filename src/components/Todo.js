@@ -8,7 +8,7 @@ const Todo = (todoObj) => {
 
   todoTitleEl.textContent = todoObj.title;
   todoDueEl.textContent = `Due on ${format(
-    new Date(...todoObj.dueDate.split("-"), ...todoObj.dueTime.split(":")),
+    new Date(Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)),
     "do MMM',' yyyy 'at' h':'m aaa" // format its to i.e. 31st Jan, 2023 at 5pm
   )}`;
 
