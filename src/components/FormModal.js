@@ -111,6 +111,12 @@ const FormModal = (
     closeAndRemoveFormModal();
   });
 
+  formModalEl.addEventListener("keydown", (e) => {
+    if (e.code === "Escape" && formModalEl.hasAttribute("open")) {
+      closeAndRemoveFormModal();
+    }
+  });
+
   btnsWrapperEl.append(submitBtnEl, cancelBtnEl);
   formEl.append(
     formHeaderEl,
