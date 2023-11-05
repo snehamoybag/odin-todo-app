@@ -1,24 +1,27 @@
 import {
-  getFieldsetEl,
+  fieldsetEl,
   inputField,
   textareaField,
+  selectField,
 } from "../scripts/formFieldGenerator";
 import { createTodoObj, addTodo, renderAllTodos } from "../scripts/todos";
+import { getProjects } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
 import { todosContainerId } from "./TodosContainer";
 import Todo from "./Todo";
 
-const FormModal = (
+const NewTaskModal = (
   title = "",
   description = "",
   dueDate = "",
   dueTime = "",
   priority = ""
 ) => {
-  const formModalEl = document.createElement("dialog");
+  const modalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
   const formHeaderEl = document.createElement("h2");
+
   const titleField = inputField("Title", {
     type: "text",
     id: "title",
@@ -32,6 +35,7 @@ const FormModal = (
     value: description,
     required: true,
   });
+
   const dueDateField = inputField("Date", {
     type: "date",
     id: "due-date",
@@ -47,11 +51,12 @@ const FormModal = (
     value: dueTime || "23:59",
     required: true,
   });
-  const dueDateAndTimeField = getFieldsetEl(
+  const dueDateAndTimeFieldsGroup = fieldsetEl(
     "Set Due Date & Time",
     dueDateField,
     dueTimeField
   );
+
   const priorityRadioEls = ["Low", "Mid", "High"].map((inputName) => {
     return inputField(inputName, {
       type: "radio",
@@ -62,25 +67,47 @@ const FormModal = (
       required: true,
     });
   });
-  const priorityField = getFieldsetEl("Set Priority", ...priorityRadioEls);
+  const priorityFieldsGroup = fieldsetEl("Set Priority", ...priorityRadioEls);
+
+  const projectSelectField = selectField(
+    "Select a Project",
+    {
+      id: "project",
+      name: "todo-project",
+    },
+    getProjects()
+  );
+  const newprojectBtnEl = document.createElement("button");
+  const projectSelectFieldsGroup = fieldsetEl(
+    "Add Task To A Project",
+    projectSelectField,
+    newprojectBtnEl
+  );
+
   const btnsWrapperEl = document.createElement("div");
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
 
-  formModalEl.classList.add("form-modal");
+  modalEl.classList.add("form-modal");
   formEl.classList.add("form-modal__form");
   formHeaderEl.classList.add("form-modal__title");
   btnsWrapperEl.classList.add("form-modal__btn-wrapper");
+  newprojectBtnEl.classList.add("btn", "btn--new-project");
   submitBtnEl.classList.add("btn", "btn--submit");
   cancelBtnEl.classList.add("btn", "btn--cancel");
 
+  newprojectBtnEl.setAttribute("type", "button");
+  submitBtnEl.setAttribute("type", "submit");
+  cancelBtnEl.setAttribute("type", "button");
+
   formHeaderEl.textContent = title ? "Edit Task" : "Create a New Task";
+  newprojectBtnEl.textContent = "Create A New Project";
   submitBtnEl.textContent = title ? "Done" : "Create";
   cancelBtnEl.textContent = "Cancel";
 
   const closeAndRemoveFormModal = () => {
-    formModalEl.close();
-    formModalEl.remove(); // removes it from DOM
+    modalEl.close();
+    modalEl.remove(); // removes it from DOM
   };
 
   formEl.addEventListener("submit", (event) => {
@@ -111,8 +138,8 @@ const FormModal = (
     closeAndRemoveFormModal();
   });
 
-  formModalEl.addEventListener("keydown", (e) => {
-    if (e.code === "Escape" && formModalEl.hasAttribute("open")) {
+  modalEl.addEventListener("keydown", (e) => {
+    if (e.code === "Escape" && modalEl.hasAttribute("open")) {
       closeAndRemoveFormModal();
     }
   });
@@ -122,13 +149,14 @@ const FormModal = (
     formHeaderEl,
     titleField,
     descriptionField,
-    dueDateAndTimeField,
-    priorityField,
+    dueDateAndTimeFieldsGroup,
+    priorityFieldsGroup,
+    projectSelectFieldsGroup,
     btnsWrapperEl
   );
-  formModalEl.append(formEl);
+  modalEl.append(formEl);
 
-  return formModalEl;
+  return modalEl;
 };
 
-export default FormModal;
+export default NewTaskModal;

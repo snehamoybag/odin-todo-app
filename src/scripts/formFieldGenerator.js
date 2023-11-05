@@ -1,12 +1,19 @@
-import { setElementProps } from "./utilities";
+import { setElementProps, snakeCase } from "./utilities";
 
-const getWrapperEl = () => {
+const _getWrapperEl = () => {
   const wrapperEl = document.createElement("p");
   wrapperEl.classList.add("field-wrapper");
   return wrapperEl;
 };
 
-export const getFieldsetEl = (legendText, ...elms) => {
+const _getLabelEl = (text, forVal) => {
+  const labelEl = document.createElement("label");
+  labelEl.setAttribute("for", forVal);
+  labelEl.textContent = text;
+  return labelEl;
+};
+
+export const fieldsetEl = (legendText, ...elms) => {
   const fieldsetEl = document.createElement("fieldset");
   const legendEl = document.createElement("legend");
 
@@ -19,16 +26,13 @@ export const getFieldsetEl = (legendText, ...elms) => {
 };
 
 export const inputField = (text, props) => {
-  const wrapperEl = getWrapperEl();
+  const wrapperEl = _getWrapperEl();
   const inputEl = document.createElement("input");
-  const labelEl = document.createElement("label");
+  const labelEl = _getLabelEl(text, props.id);
 
   setElementProps(inputEl, props);
 
-  if (props.id) labelEl.setAttribute("for", props.id);
   if (!props.checked) inputEl.removeAttribute("checked");
-
-  labelEl.textContent = text;
 
   wrapperEl.append(labelEl, inputEl);
 
@@ -36,17 +40,42 @@ export const inputField = (text, props) => {
 };
 
 export const textareaField = (text, props) => {
-  const wrapperEl = getWrapperEl();
+  const wrapperEl = _getWrapperEl();
   const textareaEl = document.createElement("textarea");
-  const labelEl = document.createElement("label");
+  const labelEl = _getLabelEl(text, props.id);
 
   setElementProps(textareaEl, props);
 
-  if (props.id) labelEl.setAttribute("for", props.id);
-
-  labelEl.textContent = text;
-
   wrapperEl.append(labelEl, textareaEl);
+
+  return wrapperEl;
+};
+
+export const selectField = (text, props, options) => {
+  const wrapperEl = _getWrapperEl();
+  const labelEl = _getLabelEl(text, props.id);
+  const selectInputEl = document.createElement("select");
+  const placeHolderOptionEl = document.createElement("option");
+  const optionEls = options.map((option) => {
+    const optionEl = document.createElement("option");
+
+    optionEl.setAttribute("value", snakeCase(option));
+
+    optionEl.textContent = option;
+
+    return optionEl;
+  });
+
+  setElementProps(selectInputEl, props);
+  placeHolderOptionEl.setAttribute("value", "");
+  placeHolderOptionEl.setAttribute("selected", "");
+  placeHolderOptionEl.setAttribute("disabled", "");
+
+  placeHolderOptionEl.textContent =
+    options.length > 0 ? "--Please Select One--" : "--No option found--";
+
+  selectInputEl.append(placeHolderOptionEl, ...optionEls);
+  wrapperEl.append(labelEl, selectInputEl);
 
   return wrapperEl;
 };

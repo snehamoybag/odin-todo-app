@@ -1,6 +1,6 @@
 import Logo from "./components/Logo";
 import Nav from "./components/Nav";
-import FormModal from "./components/FormModal";
+import NewTaskModal from "./components/NewTaskModal";
 import { TodosContainer } from "./components/TodosContainer";
 
 const App = () => {
@@ -12,9 +12,9 @@ const App = () => {
   openModalBtn.textContent = "add new todo";
 
   openModalBtn.addEventListener("click", () => {
-    const formModalEl = FormModal();
-    mainEl.append(formModalEl);
-    formModalEl.showModal();
+    const newTaskModalEl = NewTaskModal();
+    mainEl.append(newTaskModalEl);
+    newTaskModalEl.showModal();
   });
 
   headerEl.append(Logo(), Nav());
