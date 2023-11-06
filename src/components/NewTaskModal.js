@@ -77,7 +77,8 @@ const NewTaskModal = (
       id: "in-project",
       name: "todo-in-project",
     },
-    getProjects()
+    getProjects(),
+    inProject
   );
   const newprojectBtnEl = document.createElement("button");
   const projectSelectFieldsGroup = fieldsetEl(
@@ -145,7 +146,7 @@ const NewTaskModal = (
   });
 
   newprojectBtnEl.addEventListener("click", () => {
-    const projectModalEl = NewProjectModal(inProject);
+    const projectModalEl = NewProjectModal();
     modalEl.append(projectModalEl);
     projectModalEl.showModal();
   });
