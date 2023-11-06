@@ -10,13 +10,15 @@ import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
 import { todosContainerId } from "./TodosContainer";
 import Todo from "./Todo";
+import NewProjectModal from "./NewProjectModal";
 
 const NewTaskModal = (
   title = "",
   description = "",
   dueDate = "",
   dueTime = "",
-  priority = ""
+  priority = "",
+  inProject = ""
 ) => {
   const modalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
@@ -72,8 +74,8 @@ const NewTaskModal = (
   const projectSelectField = selectField(
     "Select a Project",
     {
-      id: "project",
-      name: "todo-project",
+      id: "in-project",
+      name: "todo-in-project",
     },
     getProjects()
   );
@@ -88,10 +90,10 @@ const NewTaskModal = (
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
 
-  modalEl.classList.add("form-modal");
-  formEl.classList.add("form-modal__form");
-  formHeaderEl.classList.add("form-modal__title");
-  btnsWrapperEl.classList.add("form-modal__btn-wrapper");
+  modalEl.classList.add("new-task-modal");
+  formEl.classList.add("new-task-modal__form");
+  formHeaderEl.classList.add("title", "title--secondary");
+  btnsWrapperEl.classList.add("new-task-modal__btn-wrapper");
   newprojectBtnEl.classList.add("btn", "btn--new-project");
   submitBtnEl.classList.add("btn", "btn--submit");
   cancelBtnEl.classList.add("btn", "btn--cancel");
@@ -117,15 +119,19 @@ const NewTaskModal = (
     const taskDescription = descriptionField.querySelector("textarea").value;
     const taskDueDate = dueDateField.querySelector("input").value;
     const taskDueTime = dueTimeField.querySelector("input").value;
-    const taskPriority = priorityField.querySelector(
+    const taskPriority = priorityFieldsGroup.querySelector(
       "input[name=todo-priority]:checked"
+    ).value;
+    const taskInProject = projectSelectField.querySelector(
+      "select[name=todo-in-project]"
     ).value;
     const task = createTodoObj(
       taskTitle,
       taskDescription,
       taskDueDate,
       taskDueTime,
-      taskPriority
+      taskPriority,
+      taskInProject
     );
 
     console.log(task);
@@ -136,6 +142,12 @@ const NewTaskModal = (
 
   cancelBtnEl.addEventListener("click", () => {
     closeAndRemoveFormModal();
+  });
+
+  newprojectBtnEl.addEventListener("click", () => {
+    const projectModalEl = NewProjectModal(inProject);
+    modalEl.append(projectModalEl);
+    projectModalEl.showModal();
   });
 
   modalEl.addEventListener("keydown", (e) => {

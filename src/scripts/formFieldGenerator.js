@@ -1,4 +1,4 @@
-import { setElementProps, snakeCase } from "./utilities";
+import { setElementProps } from "./utilities";
 
 const _getWrapperEl = () => {
   const wrapperEl = document.createElement("p");
@@ -51,7 +51,7 @@ export const textareaField = (text, props) => {
   return wrapperEl;
 };
 
-export const selectField = (text, props, options) => {
+export const selectField = (text, props, options, selectedOpt = "") => {
   const wrapperEl = _getWrapperEl();
   const labelEl = _getLabelEl(text, props.id);
   const selectInputEl = document.createElement("select");
@@ -59,7 +59,10 @@ export const selectField = (text, props, options) => {
   const optionEls = options.map((option) => {
     const optionEl = document.createElement("option");
 
-    optionEl.setAttribute("value", snakeCase(option));
+    optionEl.setAttribute("value", option);
+    if (selectedOpt === option) {
+      optionEl.setAttribute("selected", "");
+    }
 
     optionEl.textContent = option;
 
@@ -67,8 +70,9 @@ export const selectField = (text, props, options) => {
   });
 
   setElementProps(selectInputEl, props);
+
   placeHolderOptionEl.setAttribute("value", "");
-  placeHolderOptionEl.setAttribute("selected", "");
+  if (!selectedOpt) placeHolderOptionEl.setAttribute("selected", "");
   placeHolderOptionEl.setAttribute("disabled", "");
 
   placeHolderOptionEl.textContent =
