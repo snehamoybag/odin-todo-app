@@ -13,7 +13,7 @@ const _getLabelEl = (text, forVal) => {
   return labelEl;
 };
 
-export const fieldsetEl = (legendText, ...elms) => {
+export const getFieldsetEl = (legendText, ...elms) => {
   const fieldsetEl = document.createElement("fieldset");
   const legendEl = document.createElement("legend");
 
@@ -51,34 +51,46 @@ export const textareaField = (text, props) => {
   return wrapperEl;
 };
 
+export const getOptionEl = (text, props) => {
+  const optionEl = document.createElement("option");
+
+  setElementProps(optionEl, props);
+
+  if (!props) optionEl.setAttribute("value", text);
+
+  optionEl.textContent = text;
+
+  return optionEl;
+};
+
 export const selectField = (text, props, options, selectedOpt = "") => {
   const wrapperEl = _getWrapperEl();
   const labelEl = _getLabelEl(text, props.id);
   const selectInputEl = document.createElement("select");
-  const placeHolderOptionEl = document.createElement("option");
-  const optionEls = options.map((option) => {
-    const optionEl = document.createElement("option");
 
-    optionEl.setAttribute("value", option);
-    if (selectedOpt === option) {
-      optionEl.setAttribute("selected", "");
-    }
+  const optionEls = options.map((option, index) => {
+    const optionEl = getOptionEl(option, {
+      value: option,
+    });
 
-    optionEl.textContent = option;
+    if (selectedOpt === option) optionEl.setAttribute("selected", "");
+    if (index === 0 && !selectedOpt) optionEl.setAttribute("selected", "");
 
     return optionEl;
   });
 
   setElementProps(selectInputEl, props);
 
-  placeHolderOptionEl.setAttribute("value", "");
-  if (!selectedOpt) placeHolderOptionEl.setAttribute("selected", "");
-  placeHolderOptionEl.setAttribute("disabled", "");
+  if (options.length === 0) {
+    const placeholderOptEl = getOptionEl("--no option found--", {
+      value: "",
+      selected: "",
+      disabled: "",
+    });
+    selectInputEl.append(placeholderOptEl);
+  }
 
-  placeHolderOptionEl.textContent =
-    options.length > 0 ? "--Please Select One--" : "--No option found--";
-
-  selectInputEl.append(placeHolderOptionEl, ...optionEls);
+  selectInputEl.append(...optionEls);
   wrapperEl.append(labelEl, selectInputEl);
 
   return wrapperEl;

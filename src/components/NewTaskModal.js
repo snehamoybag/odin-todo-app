@@ -1,11 +1,12 @@
 import {
-  fieldsetEl,
+  getFieldsetEl,
   inputField,
   textareaField,
+  getOptionEl,
   selectField,
 } from "../scripts/formFieldGenerator";
 import { createTodoObj, addTodo, renderAllTodos } from "../scripts/todos";
-import { getProjects } from "../scripts/projects";
+import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
 import { todosContainerId } from "./TodosContainer";
@@ -53,7 +54,7 @@ const NewTaskModal = (
     value: dueTime || "23:59",
     required: true,
   });
-  const dueDateAndTimeFieldsGroup = fieldsetEl(
+  const dueDateAndTimeFieldsGroup = getFieldsetEl(
     "Set Due Date & Time",
     dueDateField,
     dueTimeField
@@ -69,7 +70,10 @@ const NewTaskModal = (
       required: true,
     });
   });
-  const priorityFieldsGroup = fieldsetEl("Set Priority", ...priorityRadioEls);
+  const priorityFieldsGroup = getFieldsetEl(
+    "Set Priority",
+    ...priorityRadioEls
+  );
 
   const projectSelectField = selectField(
     "Select a Project",
@@ -81,7 +85,7 @@ const NewTaskModal = (
     inProject
   );
   const newprojectBtnEl = document.createElement("button");
-  const projectSelectFieldsGroup = fieldsetEl(
+  const projectSelectFieldsGroup = getFieldsetEl(
     "Add Task To A Project",
     projectSelectField,
     newprojectBtnEl
@@ -116,6 +120,9 @@ const NewTaskModal = (
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    const todoListDOMContainerEl = document.querySelector(
+      `#${todosContainerId}`
+    );
     const taskTitle = titleField.querySelector("input").value;
     const taskDescription = descriptionField.querySelector("textarea").value;
     const taskDueDate = dueDateField.querySelector("input").value;
@@ -138,7 +145,8 @@ const NewTaskModal = (
     console.log(task);
     addTodo(task);
     closeAndRemoveFormModal();
-    renderAllTodos(Todo, document.querySelector(`#${todosContainerId}`));
+    todoListDOMContainerEl.innerHTML = ""; // remove all previous renders
+    renderAllTodos(Todo, todoListDOMContainerEl);
   });
 
   cancelBtnEl.addEventListener("click", () => {
@@ -151,9 +159,34 @@ const NewTaskModal = (
     projectModalEl.showModal();
   });
 
+  // listen for a custom event to update the projects options list
+  listenUpdateProjectsEvent(() => {
+    const projectSelectDOMEl = projectSelectField.querySelector("select");
+    const placeholderOptEl = getOptionEl("--Please select one--", {
+      value: "",
+      disabled: "",
+    });
+
+    // remove prev renders
+    projectSelectDOMEl.innerHTML = "";
+
+    // render new placeholder option
+    projectSelectDOMEl.append(placeholderOptEl);
+
+    // render updated option list
+    getProjects().forEach((option, index) => {
+      const optionEl = getOptionEl(option, { value: option });
+
+      if (index === 0) optionEl.setAttribute("selected", ""); // the first option gets selected by default
+
+      projectSelectDOMEl.append(optionEl);
+    });
+  });
+
+  // dont close modal when pressing escape key
   modalEl.addEventListener("keydown", (e) => {
-    if (e.code === "Escape" && modalEl.hasAttribute("open")) {
-      closeAndRemoveFormModal();
+    if (e.code === "Escape") {
+      e.preventDefault();
     }
   });
 

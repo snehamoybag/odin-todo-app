@@ -13,3 +13,24 @@ export const addAProject = (projectName) => {
   _projects.unshift(projectName); // add it at the beginning
   _setProjects();
 };
+
+export const renderProjects = (componentFunc, outputEl) => {
+  _projects.forEach((project) => {
+    outputEl.append(componentFunc(project));
+  });
+};
+
+const _updateProjectsEventListenerEl = document.body;
+const _updateProjectsEventName = "update-projects";
+
+export const dispatchUpdateProjectsEvent = () => {
+  const customEvent = new Event(_updateProjectsEventName);
+  _updateProjectsEventListenerEl.dispatchEvent(customEvent);
+};
+
+export const listenUpdateProjectsEvent = (doStuffFunc) => {
+  _updateProjectsEventListenerEl.addEventListener(
+    _updateProjectsEventName,
+    doStuffFunc
+  );
+};

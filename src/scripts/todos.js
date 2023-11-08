@@ -32,11 +32,6 @@ export const createTodoObj = (
   };
 };
 
-const _removePrevRenderedTodos = (containerEl) => {
-  containerEl.innerHTML = "";
-};
-
 export const renderAllTodos = (todoComponentFunc, outputEl) => {
-  _removePrevRenderedTodos(outputEl);
   _todos.forEach((todoObj) => outputEl.append(todoComponentFunc(todoObj)));
 };
