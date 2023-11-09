@@ -14,6 +14,7 @@ export const addAProject = (projectName) => {
   _setProjects();
 };
 
+// only works on simple componentes
 export const renderProjects = (componentFunc, outputEl) => {
   _projects.forEach((project) => {
     outputEl.append(componentFunc(project));
