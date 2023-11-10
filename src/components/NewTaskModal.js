@@ -13,14 +13,18 @@ import { todosContainerId } from "./TodosContainer";
 import Todo from "./Todo";
 import NewProjectModal from "./NewProjectModal";
 
-const NewTaskModal = (
-  title = "",
-  description = "",
-  dueDate = "",
-  dueTime = "",
-  priority = "",
-  inProject = ""
-) => {
+const NewTaskModal = (todoObj = {}) => {
+  // destructure all the props with default values from todoObj
+  // default values are only applied when a property is 'undefined'
+  const {
+    title = "",
+    description = "",
+    dueDate = "",
+    dueTime = "",
+    priority = "",
+    inProject = "",
+  } = todoObj;
+
   const modalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
   const formHeaderEl = document.createElement("h2");
