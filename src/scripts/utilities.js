@@ -6,8 +6,9 @@ export const setElementProps = (elm, props = {}) => {
   for (const key in props) {
     const value = props[key];
 
-    if (key === "class") elm.classList.add(value);
-    else elm.setAttribute(key, value);
+    if (key === "class") elm.classList.add(...value);
+    // else elm.setAttribute(key, value);
+    else elm[key] = value;
   }
 };
 

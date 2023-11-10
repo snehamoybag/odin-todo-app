@@ -25,6 +25,8 @@ const NewTaskModal = (todoObj = {}) => {
     inProject = "",
   } = todoObj;
 
+  console.log(description);
+
   const modalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
   const formHeaderEl = document.createElement("h2");
