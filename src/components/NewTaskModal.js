@@ -5,11 +5,15 @@ import {
   getOptionEl,
   selectField,
 } from "../scripts/formFieldGenerator";
-import { createTodoObj, addTodo, renderAllTodos } from "../scripts/todos";
+import {
+  createTodoObj,
+  addTodo,
+  deleteTodo,
+  dispatchUpdateTodosEvent,
+} from "../scripts/todos";
 import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
-import { todosContainerId } from "./TodosContainer";
 import Todo from "./Todo";
 import NewProjectModal from "./NewProjectModal";
 
@@ -24,8 +28,6 @@ const NewTaskModal = (todoObj = {}) => {
     priority = "",
     inProject = "",
   } = todoObj;
-
-  console.log(description);
 
   const modalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
@@ -113,6 +115,14 @@ const NewTaskModal = (todoObj = {}) => {
   submitBtnEl.setAttribute("type", "submit");
   cancelBtnEl.setAttribute("type", "button");
 
+  if (title) {
+    formHeaderEl.textContent = "Edit Task";
+    submitBtnEl.textContent = "Done";
+  } else {
+    formHeaderEl.textContent = "Create New Task";
+    submitBtnEl.textContent = "Create";
+  }
+
   formHeaderEl.textContent = title ? "Edit Task" : "Create a New Task";
   newprojectBtnEl.textContent = "Create A New Project";
   submitBtnEl.textContent = title ? "Done" : "Create";
@@ -126,9 +136,6 @@ const NewTaskModal = (todoObj = {}) => {
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const todoListDOMContainerEl = document.querySelector(
-      `#${todosContainerId}`
-    );
     const taskTitle = titleField.querySelector("input").value;
     const taskDescription = descriptionField.querySelector("textarea").value;
     const taskDueDate = dueDateField.querySelector("input").value;
@@ -139,6 +146,7 @@ const NewTaskModal = (todoObj = {}) => {
     const taskInProject = projectSelectField.querySelector(
       "select[name=todo-in-project]"
     ).value;
+
     const task = createTodoObj(
       taskTitle,
       taskDescription,
@@ -148,11 +156,10 @@ const NewTaskModal = (todoObj = {}) => {
       taskInProject
     );
 
-    console.log(task);
-    addTodo(task);
+    if (title) deleteTodo(todoObj); // delete the original task object when editing
+    addTodo(task); // always adds it on top of the list when editng or creating new one
+    dispatchUpdateTodosEvent();
     closeAndRemoveFormModal();
-    todoListDOMContainerEl.innerHTML = ""; // remove all previous renders
-    renderAllTodos(Todo, todoListDOMContainerEl);
   });
 
   cancelBtnEl.addEventListener("click", () => {
