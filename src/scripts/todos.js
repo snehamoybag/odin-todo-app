@@ -23,6 +23,20 @@ export const deleteTodo = (deleteTodoObj) => {
   }
 };
 
+export const checkTodoEdit = (ogTodoObj, newTodoObj) => {
+  let isDifferenceFound = false;
+  // check for values difference
+  for (const key in ogTodoObj) {
+    if (ogTodoObj[key] !== newTodoObj[key]) {
+      isDifferenceFound = true;
+      return isDifferenceFound;
+    }
+  }
+  // runns only if loop ends, loop ends when no difference is found
+  isDifferenceFound = false;
+  return isDifferenceFound;
+};
+
 export const createTodoObj = (
   title,
   description,

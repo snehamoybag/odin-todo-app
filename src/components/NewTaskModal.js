@@ -9,6 +9,7 @@ import {
   createTodoObj,
   addTodo,
   deleteTodo,
+  checkTodoEdit,
   dispatchUpdateTodosEvent,
 } from "../scripts/todos";
 import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
@@ -156,8 +157,17 @@ const NewTaskModal = (todoObj = {}) => {
       taskInProject
     );
 
-    if (title) deleteTodo(todoObj); // delete the original task object when editing
-    addTodo(task); // always adds it on top of the list when editng or creating new one
+    const isTaskEdited = checkTodoEdit(todoObj, task);
+
+    if (!title) {
+      //always add the new todo on top of the list
+      addTodo(task);
+    } else if (title && isTaskEdited) {
+      // add edied todo on top of the list, only when user has successfully edited the todo
+      deleteTodo(todoObj); // delete the original task object after editing
+      addTodo(task);
+    }
+
     dispatchUpdateTodosEvent();
     closeAndRemoveFormModal();
   });
