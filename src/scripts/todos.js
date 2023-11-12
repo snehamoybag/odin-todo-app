@@ -1,9 +1,16 @@
 import { storeAndSyncData } from "./utilities";
+import { getTodayDate } from "./dates";
 
 const _todosKey = "todos";
 let _todos = [];
 
 export const getAllTodos = () => _todos;
+
+export const getTodaysTodos = () =>
+  _todos.filter((todoObj) => {
+    const todaysDate = getTodayDate();
+    if (todoObj.dueDate === todaysDate) return todoObj;
+  });
 
 const _syncTodos = () => {
   _todos = storeAndSyncData(_todos, _todosKey);

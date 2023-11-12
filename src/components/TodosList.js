@@ -1,4 +1,8 @@
-import { getAllTodos, listenUpdateTodosEvent } from "../scripts/todos";
+import {
+  getAllTodos,
+  getTodaysTodos,
+  listenUpdateTodosEvent,
+} from "../scripts/todos";
 import Todo from "./Todo";
 
 const _listElId = "todos-list";
@@ -30,6 +34,22 @@ export const allTodosList = () => {
   render();
 
   // re-render when todos data list is updated
+  listenUpdateTodosEvent(() => {
+    _removePrevRender();
+    render();
+  });
+
+  return listEl;
+};
+
+export const todaysTodo = () => {
+  const listEl = _getListEl();
+  const render = () => {
+    _renderTodos(getTodaysTodos(), listEl);
+  };
+
+  render();
+
   listenUpdateTodosEvent(() => {
     _removePrevRender();
     render();
