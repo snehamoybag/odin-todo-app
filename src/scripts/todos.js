@@ -3,7 +3,7 @@ import { storeAndSyncData } from "./utilities";
 const _todosKey = "todos";
 let _todos = [];
 
-export const getTodos = () => _todos;
+export const getAllTodos = () => _todos;
 
 const _syncTodos = () => {
   _todos = storeAndSyncData(_todos, _todosKey);
@@ -53,10 +53,6 @@ export const createTodoObj = (
     priority,
     inProject,
   };
-};
-
-export const renderAllTodos = (todoComponentFunc, outputEl) => {
-  _todos.forEach((todoObj) => outputEl.append(todoComponentFunc(todoObj)));
 };
 
 const _updateTodosEventListenerEl = document.body;

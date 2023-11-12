@@ -15,7 +15,6 @@ import {
 import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
 import { snakeCase } from "../scripts/utilities";
-import Todo from "./Todo";
 import NewProjectModal from "./NewProjectModal";
 
 const NewTaskModal = (todoObj = {}) => {
