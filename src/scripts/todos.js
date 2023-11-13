@@ -1,46 +1,40 @@
 import { storeAndSyncData } from "./utilities";
 import { getTodayDate } from "./dates";
 
-const _todosKey = "todos";
-let _todos = [];
+const todosKey = "todos";
+let todos = [];
 
-export const getAllTodos = () => _todos;
+export const getAllTodos = () => todos;
 
 export const getTodaysTodos = () =>
-  _todos.filter((todoObj) => {
+  todos.filter((todoObj) => {
     const todaysDate = getTodayDate();
-    if (todoObj.dueDate === todaysDate) return todoObj;
+    return todoObj.dueDate === todaysDate;
   });
 
-const _syncTodos = () => {
-  _todos = storeAndSyncData(_todos, _todosKey);
+const syncTodos = () => {
+  todos = storeAndSyncData(todos, todosKey);
 };
 
 export const addTodo = (todoObj) => {
-  _todos.unshift(todoObj); // adds it at the beginning
-  _syncTodos();
+  todos.unshift(todoObj); // adds it at the beginning
+  syncTodos();
 };
 
 export const deleteTodo = (deleteTodoObj) => {
-  const indexOfDeleteTodoObj = _todos.indexOf(deleteTodoObj);
+  const indexOfDeleteTodoObj = todos.indexOf(deleteTodoObj);
 
   if (indexOfDeleteTodoObj >= 0) {
-    _todos.splice(indexOfDeleteTodoObj, 1);
-    _syncTodos();
+    todos.splice(indexOfDeleteTodoObj, 1);
+    syncTodos();
   }
 };
 
 export const checkTodoEdit = (ogTodoObj, newTodoObj) => {
-  let isDifferenceFound = false;
-  // check for values difference
-  for (const key in ogTodoObj) {
-    if (ogTodoObj[key] !== newTodoObj[key]) {
-      isDifferenceFound = true;
-      return isDifferenceFound;
-    }
-  }
-  // runns only if loop ends, loop ends when no difference is found
-  isDifferenceFound = false;
+  const differences = Object.keys(ogTodoObj).filter(
+    (key) => ogTodoObj[key] !== newTodoObj[key]
+  );
+  const isDifferenceFound = differences.length < 0;
   return isDifferenceFound;
 };
 
@@ -51,28 +45,26 @@ export const createTodoObj = (
   dueTime,
   priority,
   inProject
-) => {
-  return {
-    title,
-    description,
-    dueDate,
-    dueTime,
-    priority,
-    inProject,
-  };
-};
+) => ({
+  title,
+  description,
+  dueDate,
+  dueTime,
+  priority,
+  inProject,
+});
 
-const _updateTodosEventListenerEl = document.body;
-const _updateTodosEventName = "update-projects";
+const updateTodosEventListenerEl = document.body;
+const updateTodosEventName = "update-projects";
 
 export const dispatchUpdateTodosEvent = () => {
-  const customEvent = new Event(_updateTodosEventName);
-  _updateTodosEventListenerEl.dispatchEvent(customEvent);
+  const customEvent = new Event(updateTodosEventName);
+  updateTodosEventListenerEl.dispatchEvent(customEvent);
 };
 
 export const listenUpdateTodosEvent = (doStuffFunc) => {
-  _updateTodosEventListenerEl.addEventListener(
-    _updateTodosEventName,
+  updateTodosEventListenerEl.addEventListener(
+    updateTodosEventName,
     doStuffFunc
   );
 };

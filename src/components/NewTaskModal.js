@@ -68,16 +68,16 @@ const NewTaskModal = (todoObj = {}) => {
     dueTimeField
   );
 
-  const priorityRadioEls = ["Low", "Mid", "High"].map((inputName) => {
-    return inputField(inputName, {
+  const priorityRadioEls = ["Low", "Mid", "High"].map((inputName) =>
+    inputField(inputName, {
       type: "radio",
       id: `todo-priority-${snakeCase(inputName)}`,
       name: "todo-priority",
       value: snakeCase(inputName),
       checked: snakeCase(inputName) === priority,
       required: true,
-    });
-  });
+    })
+  );
   const priorityFieldsGroup = getFieldsetEl(
     "Set Priority",
     ...priorityRadioEls
@@ -159,7 +159,7 @@ const NewTaskModal = (todoObj = {}) => {
     const isTaskEdited = checkTodoEdit(todoObj, task);
 
     if (!title) {
-      //always add the new todo on top of the list
+      // always add the new todo on top of the list
       addTodo(task);
     } else if (title && isTaskEdited) {
       // add edied todo on top of the list, only when user has successfully edited the todo

@@ -5,29 +5,29 @@ import {
 } from "../scripts/todos";
 import Todo from "./Todo";
 
-const _listElId = "todos-list";
+const listElId = "todos-list";
 
-const _getListEl = () => {
+const getListEl = () => {
   const listEl = document.createElement("ol");
-  listEl.id = _listElId;
+  listEl.id = listElId;
   listEl.classList.add("todos");
   return listEl;
 };
 
-const _removePrevRender = () => {
-  document.querySelector(`#${_listElId}`).innerHTML = "";
+const removePrevRender = () => {
+  document.querySelector(`#${listElId}`).innerHTML = "";
 };
 
-const _renderTodos = (todosDataList, containerEl) => {
+const renderTodos = (todosDataList, containerEl) => {
   todosDataList.forEach((dataItem) => {
     containerEl.append(Todo(dataItem));
   });
 };
 
 export const allTodosList = () => {
-  const listEl = _getListEl();
+  const listEl = getListEl();
   const render = () => {
-    _renderTodos(getAllTodos(), listEl);
+    renderTodos(getAllTodos(), listEl);
   };
 
   // render when this function is called
@@ -35,7 +35,7 @@ export const allTodosList = () => {
 
   // re-render when todos data list is updated
   listenUpdateTodosEvent(() => {
-    _removePrevRender();
+    removePrevRender();
     render();
   });
 
@@ -43,15 +43,15 @@ export const allTodosList = () => {
 };
 
 export const todaysTodo = () => {
-  const listEl = _getListEl();
+  const listEl = getListEl();
   const render = () => {
-    _renderTodos(getTodaysTodos(), listEl);
+    renderTodos(getTodaysTodos(), listEl);
   };
 
   render();
 
   listenUpdateTodosEvent(() => {
-    _removePrevRender();
+    removePrevRender();
     render();
   });
 

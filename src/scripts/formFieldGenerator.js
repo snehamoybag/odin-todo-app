@@ -1,12 +1,12 @@
 import { setElementProps } from "./utilities";
 
-const _getWrapperEl = () => {
+const getWrapperEl = () => {
   const wrapperEl = document.createElement("p");
   wrapperEl.classList.add("field-wrapper");
   return wrapperEl;
 };
 
-const _getLabelEl = (text, forVal) => {
+const getLabelEl = (text, forVal) => {
   const labelEl = document.createElement("label");
   labelEl.setAttribute("for", forVal);
   labelEl.textContent = text;
@@ -26,9 +26,9 @@ export const getFieldsetEl = (legendText, ...elms) => {
 };
 
 export const inputField = (text, props) => {
-  const wrapperEl = _getWrapperEl();
+  const wrapperEl = getWrapperEl();
   const inputEl = document.createElement("input");
-  const labelEl = _getLabelEl(text, props.id);
+  const labelEl = getLabelEl(text, props.id);
 
   setElementProps(inputEl, props);
 
@@ -40,11 +40,12 @@ export const inputField = (text, props) => {
 };
 
 export const textareaField = (text, props) => {
-  const wrapperEl = _getWrapperEl();
+  const wrapperEl = getWrapperEl();
   const textareaEl = document.createElement("textarea");
-  const labelEl = _getLabelEl(text, props.id);
+  const labelEl = getLabelEl(text, props.id);
 
   setElementProps(textareaEl, props);
+  textareaEl.value = props.value; // to make sure textarea is filled (if content available) when rendering
 
   wrapperEl.append(labelEl, textareaEl);
 
@@ -64,8 +65,8 @@ export const getOptionEl = (text, props) => {
 };
 
 export const selectField = (text, props, options, selectedOpt = "") => {
-  const wrapperEl = _getWrapperEl();
-  const labelEl = _getLabelEl(text, props.id);
+  const wrapperEl = getWrapperEl();
+  const labelEl = getLabelEl(text, props.id);
   const selectInputEl = document.createElement("select");
 
   const optionEls = options.map((option, index) => {
