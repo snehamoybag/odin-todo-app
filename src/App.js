@@ -2,7 +2,7 @@ import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import NewTaskModal from "./components/NewTaskModal";
 import { TodoListContainer } from "./components/TodoListContainer";
-import { allTodosList } from "./components/TodosList";
+import { todosListAll } from "./components/TodosList";
 
 const App = () => {
   const appContainerEl = document.createElement("div");
@@ -20,7 +20,7 @@ const App = () => {
   });
 
   headerEl.append(Logo(), Nav());
-  todosContainerEl.append(allTodosList());
+  todosContainerEl.append(todosListAll());
   mainEl.append(openModalBtn, todosContainerEl);
   appContainerEl.append(headerEl, mainEl);
 

@@ -6,11 +6,14 @@ let todos = [];
 
 export const getAllTodos = () => todos;
 
-export const getTodaysTodos = () =>
+export const getTodayTodos = () =>
   todos.filter((todoObj) => {
     const todaysDate = getTodayDate();
     return todoObj.dueDate === todaysDate;
   });
+
+export const getProjectTodos = (projectName) =>
+  todos.filter((todoObj) => todoObj.inProject === projectName);
 
 const syncTodos = () => {
   todos = storeAndSyncData(todos, todosKey);
