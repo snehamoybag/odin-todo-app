@@ -1,12 +1,14 @@
 import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import NewTaskModal from "./components/NewTaskModal";
+import { TodoListContainer } from "./components/TodoListContainer";
 import { allTodosList } from "./components/TodosList";
 
 const App = () => {
   const appContainerEl = document.createElement("div");
   const headerEl = document.createElement("header");
   const mainEl = document.createElement("main");
+  const todosContainerEl = TodoListContainer();
   const openModalBtn = document.createElement("button");
 
   openModalBtn.textContent = "add new todo";
@@ -18,7 +20,8 @@ const App = () => {
   });
 
   headerEl.append(Logo(), Nav());
-  mainEl.append(openModalBtn, allTodosList());
+  todosContainerEl.append(allTodosList());
+  mainEl.append(openModalBtn, todosContainerEl);
   appContainerEl.append(headerEl, mainEl);
 
   return appContainerEl;

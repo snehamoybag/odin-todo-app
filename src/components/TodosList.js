@@ -42,7 +42,7 @@ export const allTodosList = () => {
   return listEl;
 };
 
-export const todaysTodo = () => {
+export const todaysTodoList = () => {
   const listEl = getListEl();
   const render = () => {
     renderTodos(getTodaysTodos(), listEl);

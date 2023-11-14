@@ -1,4 +1,4 @@
-import { inputField } from "../scripts/formFieldGenerator";
+import { inputField } from "./FormFields";
 import { addAProject, dispatchUpdateProjectsEvent } from "../scripts/projects";
 
 const NewProjectModal = (inProject = "") => {

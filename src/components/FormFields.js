@@ -1,4 +1,4 @@
-import { setElementProps } from "./utilities";
+import { setElementProps } from "../scripts/utilities";
 
 const getWrapperEl = () => {
   const wrapperEl = document.createElement("p");

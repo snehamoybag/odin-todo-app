@@ -4,7 +4,7 @@ import {
   textareaField,
   getOptionEl,
   selectField,
-} from "../scripts/formFieldGenerator";
+} from "./FormFields";
 import {
   createTodoObj,
   addTodo,
