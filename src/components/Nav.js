@@ -1,6 +1,7 @@
 import { snakeCase, setElementProps } from "../scripts/utilities";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todosListAll, todosListToday } from "./TodosList";
+import ProjectList from "./ProjectList";
 
 const Nav = () => {
   const renderNewTodoList = (event, todoLstEl) => {
@@ -45,7 +46,7 @@ const Nav = () => {
     renderNewTodoList(e, todosListToday())
   );
 
-  navListEl.append(allLinkEl, todayLinkEl, thisWeekLinkEl);
+  navListEl.append(allLinkEl, todayLinkEl, thisWeekLinkEl, ProjectList());
   navEl.append(navListEl);
 
   return navEl;

@@ -12,7 +12,7 @@ export const getTodayTodos = () =>
     return todoObj.dueDate === todaysDate;
   });
 
-export const getProjectTodos = (projectName) =>
+export const getTodosByProjectName = (projectName) =>
   todos.filter((todoObj) => todoObj.inProject === projectName);
 
 const syncTodos = () => {

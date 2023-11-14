@@ -14,13 +14,6 @@ export const addAProject = (projectName) => {
   setProjects();
 };
 
-// only works on simple componentes
-export const renderProjects = (componentFunc, outputEl) => {
-  projects.forEach((project) => {
-    outputEl.append(componentFunc(project));
-  });
-};
-
 const updateProjectsEventListenerEl = document.body;
 const updateProjectsEventName = "update-projects";
 
