@@ -4,14 +4,14 @@ import { todosListAll, todosListToday } from "./TodosList";
 import ProjectList from "./ProjectList";
 
 const Nav = () => {
-  const renderNewTodoList = (event, todoLstEl) => {
+  const renderNewTodoList = (event, todoListEl) => {
     event.preventDefault();
     const DOMTodoListContainer = getDOMTodoListContainer();
 
     // remove prev renders
     DOMTodoListContainer.innerHTML = "";
     // render new todo list
-    DOMTodoListContainer.append(todoLstEl);
+    DOMTodoListContainer.append(todoListEl);
   };
 
   const getNavLinkItem = (
