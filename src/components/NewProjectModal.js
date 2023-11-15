@@ -1,17 +1,23 @@
 import { inputField } from "./FormFields";
-import { addAProject, dispatchUpdateProjectsEvent } from "../scripts/projects";
+import {
+  addAProject,
+  dispatchUpdateProjectsEvent,
+  getProjects,
+} from "../scripts/projects";
 
 const NewProjectModal = (inProject = "") => {
   const modalEl = document.createElement("dialog");
   const titleEl = document.createElement("h2");
   const formEl = document.createElement("form");
+  const projectInputId = "new-project";
   const projectField = inputField("Project Name", {
     type: "text",
-    id: "new-project",
+    id: projectInputId,
     name: "new-project",
     value: inProject || "",
     required: "",
   });
+
   const btnsWrapperEl = document.createElement("div");
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
@@ -34,9 +40,28 @@ const NewProjectModal = (inProject = "") => {
   submitBtnEl.textContent = inProject ? "Done" : "Create";
   cancelBtnEl.textContent = "Cancel";
 
+  const projectInputDOMEl = projectField.querySelector(`#${projectInputId}`);
+
+  // dont allow duplicate project names
+  projectInputDOMEl.addEventListener("change", () => {
+    const userInput = projectInputDOMEl.value;
+    const isUserInputDuplicate = getProjects().includes(userInput);
+
+    if (isUserInputDuplicate) {
+      projectInputDOMEl.setCustomValidity(
+        "Error: project either already exists or is invalid. Try a different name."
+      );
+    } else {
+      projectInputDOMEl.setCustomValidity("");
+    }
+  });
+
+  // only submited when input field is valid
   formEl.addEventListener("submit", (e) => {
+    const userInput = projectInputDOMEl.value;
+
     e.preventDefault(); // to turn off 'form not connected warning'
-    addAProject(projectField.querySelector("#new-project").value);
+    addAProject(userInput);
     dispatchUpdateProjectsEvent();
     closeAndRemoveModal();
   });
