@@ -34,7 +34,8 @@ const NewProjectModal = (inProject = "") => {
   submitBtnEl.textContent = inProject ? "Done" : "Create";
   cancelBtnEl.textContent = "Cancel";
 
-  formEl.addEventListener("submit", () => {
+  formEl.addEventListener("submit", (e) => {
+    e.preventDefault(); // to turn off 'form not connected warning'
     addAProject(projectField.querySelector("#new-project").value);
     dispatchUpdateProjectsEvent();
     closeAndRemoveModal();

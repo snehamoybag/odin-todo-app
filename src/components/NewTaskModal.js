@@ -184,16 +184,9 @@ const NewTaskModal = (todoObj = {}) => {
   // listen for a custom event to update the projects options list
   listenUpdateProjectsEvent(() => {
     const projectSelectDOMEl = projectSelectField.querySelector("select");
-    const placeholderOptEl = getOptionEl("--Please select one--", {
-      value: "",
-      disabled: "",
-    });
 
     // remove prev renders
     projectSelectDOMEl.innerHTML = "";
-
-    // render new placeholder option
-    projectSelectDOMEl.append(placeholderOptEl);
 
     // render updated option list
     getProjects().forEach((option, index) => {

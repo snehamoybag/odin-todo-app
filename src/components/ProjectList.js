@@ -1,4 +1,8 @@
-import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
+import {
+  inBuiltProject,
+  getProjects,
+  listenUpdateProjectsEvent,
+} from "../scripts/projects";
 import {
   getTodosByProjectName,
   listenUpdateTodosEvent,
@@ -43,7 +47,9 @@ const ProjectList = () => {
     listEl.textContent = "Projects"; // making sure it doesn't get removed when using `innerHTMl = ""` while re-rendering
 
     getProjects().forEach((project) => {
-      listEl.append(createProjectListItemEl(project));
+      if (project !== inBuiltProject) {
+        listEl.append(createProjectListItemEl(project));
+      }
     });
   };
 

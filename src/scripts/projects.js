@@ -1,7 +1,8 @@
 import { storeAndSyncData } from "./utilities";
 
 const projectsKey = "projects";
-let projects = [];
+export const inBuiltProject = "none"; // any task that is not inside a project goes here by default
+let projects = [inBuiltProject];
 
 export const getProjects = () => projects;
 
