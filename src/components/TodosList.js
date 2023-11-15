@@ -1,6 +1,7 @@
 import {
   getAllTodos,
   getTodayTodos,
+  getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
 import Todo from "./Todo";
@@ -31,3 +32,6 @@ const generateTodosListEl = (getTodosDataFunc) => {
 export const todosListAll = () => generateTodosListEl(getAllTodos);
 
 export const todosListToday = () => generateTodosListEl(getTodayTodos);
+
+export const todoListInProject = (projectName) =>
+  generateTodosListEl(() => getTodosByProjectName(projectName));

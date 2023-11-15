@@ -3,6 +3,8 @@ import {
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
+import { getDOMTodoListContainer } from "./TodoListContainer";
+import { todoListInProject } from "./TodosList";
 
 const ProjectList = () => {
   const createProjectListItemEl = (projectName) => {
@@ -21,6 +23,14 @@ const ProjectList = () => {
 
     listItemEl.append(linkEl);
     if (numOfTodosInProject > 0) listItemEl.append(numOfTodosInProjectEl);
+
+    listItemEl.addEventListener("click", (e) => {
+      const todoListDOMContainer = getDOMTodoListContainer();
+
+      e.preventDefault();
+      todoListDOMContainer.innerHTML = ""; // remove prev redered todo list
+      todoListDOMContainer.append(todoListInProject(projectName));
+    });
 
     return listItemEl;
   };
