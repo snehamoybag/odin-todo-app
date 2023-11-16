@@ -4,6 +4,7 @@ import {
   dispatchUpdateProjectsEvent,
   getProjects,
 } from "../scripts/projects";
+import { closeAndRemoveModal } from "../scripts/utilities";
 
 const NewProjectModal = (inProject = "") => {
   const modalEl = document.createElement("dialog");
@@ -21,11 +22,6 @@ const NewProjectModal = (inProject = "") => {
   const btnsWrapperEl = document.createElement("div");
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
-
-  const closeAndRemoveModal = () => {
-    modalEl.close();
-    modalEl.remove();
-  };
 
   modalEl.classList.add("new-project-modal");
   titleEl.classList.add("title", "title--secondary");
@@ -63,10 +59,10 @@ const NewProjectModal = (inProject = "") => {
     e.preventDefault(); // to turn off 'form not connected warning'
     addAProject(userInput);
     dispatchUpdateProjectsEvent();
-    closeAndRemoveModal();
+    closeAndRemoveModal(modalEl);
   });
 
-  cancelBtnEl.addEventListener("click", closeAndRemoveModal);
+  cancelBtnEl.addEventListener("click", () => closeAndRemoveModal(modalEl));
 
   modalEl.addEventListener("keydown", (e) => {
     if (e.code === "Escape") {

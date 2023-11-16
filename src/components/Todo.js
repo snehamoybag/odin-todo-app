@@ -1,6 +1,7 @@
-import { format } from "date-fns";
+import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
+import TodoDetailsModal from "./TodoDetailsModal";
 
 const Todo = (todoObj) => {
   const todoContainerEl = document.createElement("li");
@@ -9,16 +10,23 @@ const Todo = (todoObj) => {
   const todoTitleEl = document.createElement("h2");
   const todoDueEl = document.createElement("p");
   const btnsWrapperEl = document.createElement("div");
+  const detailsBtnEl = document.createElement("button");
   const editBtnEl = document.createElement("button");
   const deleteBtnEl = document.createElement("button");
 
   todoTitleEl.textContent = todoObj.title;
-  todoDueEl.textContent = `Due on ${format(
-    new Date(Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)),
-    "do MMM',' yyyy 'at' h':'m aaa" // formats it to i.e. 31st Jan, 2023 at 5pm
-  )}`;
+  todoDueEl.textContent = getFormatedDueDateAndTime(
+    Date.parse(todoObj.dueDate, todoObj.dueTime)
+  );
+  detailsBtnEl.textContent = "Details";
   editBtnEl.textContent = "Edit";
   deleteBtnEl.textContent = "Delete";
+
+  detailsBtnEl.addEventListener("click", () => {
+    const todoDetailsModalEl = TodoDetailsModal(todoObj);
+    todoContainerEl.append(todoDetailsModalEl);
+    todoDetailsModalEl.showModal();
+  });
 
   editBtnEl.addEventListener("click", () => {
     const editModalEl = NewTaskModal(todoObj);
@@ -32,7 +40,7 @@ const Todo = (todoObj) => {
   });
 
   textsWrapperEl.append(todoTitleEl, todoDueEl);
-  btnsWrapperEl.append(editBtnEl, deleteBtnEl);
+  btnsWrapperEl.append(detailsBtnEl, editBtnEl, deleteBtnEl);
   todoBodyEl.append(textsWrapperEl, btnsWrapperEl);
   todoContainerEl.append(todoBodyEl);
   return todoContainerEl;

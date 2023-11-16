@@ -8,20 +8,20 @@ const App = () => {
   const appContainerEl = document.createElement("div");
   const headerEl = document.createElement("header");
   const mainEl = document.createElement("main");
-  const todosContainerEl = TodoListContainer();
+  const todosListContainerEl = TodoListContainer();
   const openModalBtn = document.createElement("button");
 
   openModalBtn.textContent = "add new todo";
 
   openModalBtn.addEventListener("click", () => {
     const newTaskModalEl = NewTaskModal();
-    mainEl.append(newTaskModalEl);
+    todosListContainerEl.append(newTaskModalEl);
     newTaskModalEl.showModal();
   });
 
   headerEl.append(Logo(), Nav());
-  todosContainerEl.append(todosListAll());
-  mainEl.append(openModalBtn, todosContainerEl);
+  todosListContainerEl.append(todosListAll());
+  mainEl.append(openModalBtn, todosListContainerEl);
   appContainerEl.append(headerEl, mainEl);
 
   return appContainerEl;

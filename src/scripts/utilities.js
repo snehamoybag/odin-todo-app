@@ -12,3 +12,8 @@ export const storeAndSyncData = (data, dataKey) => {
   const storageData = JSON.parse(localStorage.getItem(dataKey));
   return storageData;
 };
+
+export const closeAndRemoveModal = (modalEl) => {
+  modalEl.close();
+  modalEl.remove();
+};

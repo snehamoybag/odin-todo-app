@@ -14,7 +14,7 @@ import {
 } from "../scripts/todos";
 import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
-import { snakeCase } from "../scripts/utilities";
+import { snakeCase, closeAndRemoveModal } from "../scripts/utilities";
 import NewProjectModal from "./NewProjectModal";
 
 const NewTaskModal = (todoObj = {}) => {
@@ -128,11 +128,6 @@ const NewTaskModal = (todoObj = {}) => {
   submitBtnEl.textContent = title ? "Done" : "Create";
   cancelBtnEl.textContent = "Cancel";
 
-  const closeAndRemoveFormModal = () => {
-    modalEl.close();
-    modalEl.remove(); // removes it from DOM
-  };
-
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -168,12 +163,10 @@ const NewTaskModal = (todoObj = {}) => {
     }
 
     dispatchUpdateTodosEvent();
-    closeAndRemoveFormModal();
+    closeAndRemoveModal(modalEl);
   });
 
-  cancelBtnEl.addEventListener("click", () => {
-    closeAndRemoveFormModal();
-  });
+  cancelBtnEl.addEventListener("click", () => closeAndRemoveModal(modalEl));
 
   newprojectBtnEl.addEventListener("click", () => {
     const projectModalEl = NewProjectModal();
