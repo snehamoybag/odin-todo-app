@@ -149,7 +149,7 @@ const NewTaskModal = (todoObj = {}) => {
     );
 
     const isTaskEdited = checkTodoEdit(todoObj, task);
-    console.log(isTaskEdited);
+
     if (!title) {
       // always add the new todo on top of the list
       addTodo(task);
