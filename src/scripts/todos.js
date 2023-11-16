@@ -37,8 +37,8 @@ export const checkTodoEdit = (ogTodoObj, newTodoObj) => {
   const differences = Object.keys(ogTodoObj).filter(
     (key) => ogTodoObj[key] !== newTodoObj[key]
   );
-  const isDifferenceFound = differences.length < 0;
-  return isDifferenceFound;
+  const isEdited = differences.length > 0;
+  return isEdited;
 };
 
 export const createTodoObj = (

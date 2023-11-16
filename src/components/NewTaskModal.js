@@ -135,12 +135,9 @@ const NewTaskModal = (todoObj = {}) => {
     const taskDescription = descriptionField.querySelector("textarea").value;
     const taskDueDate = dueDateField.querySelector("input").value;
     const taskDueTime = dueTimeField.querySelector("input").value;
-    const taskPriority = priorityFieldsGroup.querySelector(
-      "input[name=todo-priority]:checked"
-    ).value;
-    const taskInProject = projectSelectField.querySelector(
-      "select[name=todo-in-project]"
-    ).value;
+    const taskPriority =
+      priorityFieldsGroup.querySelector("input:checked").value;
+    const taskInProject = projectSelectField.querySelector("select").value;
 
     const task = createTodoObj(
       taskTitle,
@@ -152,7 +149,7 @@ const NewTaskModal = (todoObj = {}) => {
     );
 
     const isTaskEdited = checkTodoEdit(todoObj, task);
-
+    console.log(isTaskEdited);
     if (!title) {
       // always add the new todo on top of the list
       addTodo(task);
@@ -184,9 +181,7 @@ const NewTaskModal = (todoObj = {}) => {
     // render updated option list
     getProjects().forEach((option, index) => {
       const optionEl = getOptionEl(option, { value: option });
-
       if (index === 0) optionEl.setAttribute("selected", ""); // the first option gets selected by default
-
       projectSelectDOMEl.append(optionEl);
     });
   });
