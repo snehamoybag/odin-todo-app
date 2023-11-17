@@ -29,7 +29,7 @@ const NewTaskModal = (todoObj = {}) => {
     inProject = "",
   } = todoObj;
 
-  const modalEl = document.createElement("dialog");
+  const taskModalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
   const formHeaderEl = document.createElement("h2");
 
@@ -103,7 +103,7 @@ const NewTaskModal = (todoObj = {}) => {
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
 
-  modalEl.classList.add("new-task-modal");
+  taskModalEl.classList.add("new-task-modal");
   formEl.classList.add("new-task-modal__form");
   formHeaderEl.classList.add("title", "title--secondary");
   btnsWrapperEl.classList.add("new-task-modal__btn-wrapper");
@@ -160,14 +160,14 @@ const NewTaskModal = (todoObj = {}) => {
     }
 
     dispatchUpdateTodosEvent();
-    closeAndRemoveModal(modalEl);
+    closeAndRemoveModal(taskModalEl);
   });
 
-  cancelBtnEl.addEventListener("click", () => closeAndRemoveModal(modalEl));
+  cancelBtnEl.addEventListener("click", () => closeAndRemoveModal(taskModalEl));
 
   newprojectBtnEl.addEventListener("click", () => {
     const projectModalEl = NewProjectModal();
-    modalEl.append(projectModalEl);
+    taskModalEl.append(projectModalEl);
     projectModalEl.showModal();
   });
 
@@ -187,7 +187,7 @@ const NewTaskModal = (todoObj = {}) => {
   });
 
   // dont close modal when pressing escape key
-  modalEl.addEventListener("keydown", (e) => {
+  taskModalEl.addEventListener("keydown", (e) => {
     if (e.code === "Escape") {
       e.preventDefault();
     }
@@ -203,9 +203,9 @@ const NewTaskModal = (todoObj = {}) => {
     projectSelectFieldsGroup,
     btnsWrapperEl
   );
-  modalEl.append(formEl);
+  taskModalEl.append(formEl);
 
-  return modalEl;
+  return taskModalEl;
 };
 
 export default NewTaskModal;

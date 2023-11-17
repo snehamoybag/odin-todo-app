@@ -29,8 +29,9 @@ const Todo = (todoObj) => {
   });
 
   editBtnEl.addEventListener("click", () => {
+    const mainEl = document.querySelector("main");
     const editModalEl = NewTaskModal(todoObj);
-    todoContainerEl.append(editModalEl);
+    mainEl.append(editModalEl);
     editModalEl.showModal();
   });
 

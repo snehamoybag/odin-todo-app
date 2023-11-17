@@ -1,6 +1,5 @@
 import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { closeAndRemoveModal } from "../scripts/utilities";
-import { getDOMTodoListContainer } from "./TodoListContainer";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
 
@@ -33,9 +32,9 @@ const TodoDetailsModal = (todoObj) => {
 
   editBtnEl.addEventListener("click", () => {
     const editTaskModalEl = NewTaskModal(todoObj);
-    const todosListContainerEl = getDOMTodoListContainer();
+    const mainEl = document.querySelector("main");
 
-    todosListContainerEl.append(editTaskModalEl);
+    mainEl.append(editTaskModalEl);
     editTaskModalEl.showModal();
     closeAndRemoveModal(modalEl);
   });

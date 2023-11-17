@@ -15,7 +15,7 @@ const App = () => {
 
   openModalBtn.addEventListener("click", () => {
     const newTaskModalEl = NewTaskModal();
-    todosListContainerEl.append(newTaskModalEl);
+    mainEl.append(newTaskModalEl);
     newTaskModalEl.showModal();
   });
 
