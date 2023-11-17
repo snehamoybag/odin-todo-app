@@ -1,5 +1,5 @@
 import { storeAndSyncData } from "./utilities";
-import { getTodayDate } from "./dates";
+import { getTodayDate, getWeekNumOfYear } from "./dates";
 
 const todosKey = "todos";
 let todos = [];
@@ -10,6 +10,15 @@ export const getTodayTodos = () =>
   todos.filter((todoObj) => {
     const todaysDate = getTodayDate();
     return todoObj.dueDate === todaysDate;
+  });
+
+export const getThisWeekTodo = () =>
+  todos.filter((todoObj) => {
+    const currentWeekNum = getWeekNumOfYear(new Date());
+    const weekNumOfDueDate = getWeekNumOfYear(
+      Date.parse(todoObj.dueDate, todoObj.dueTime)
+    );
+    return weekNumOfDueDate === currentWeekNum;
   });
 
 export const getTodosByProjectName = (projectName) =>

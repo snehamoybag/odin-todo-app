@@ -7,4 +7,7 @@ export const getTodayDate = (outputFormat = "yyyy-MM-dd") =>
 export const getFormatedDueDateAndTime = (timeStamp) =>
   `Due on ${format(new Date(timeStamp), "do MMM',' yyyy 'at' h':'m aaa")}`;
 
+// get week number in local format
+export const getWeekNumOfYear = (timeStamp) => format(new Date(timeStamp), "w");
+
 export default getTodayDate;
