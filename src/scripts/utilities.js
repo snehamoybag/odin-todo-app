@@ -2,8 +2,13 @@ export const snakeCase = (string) => string.toLowerCase().split(" ").join("-");
 
 export const setElementProps = (elm, props = {}) => {
   Object.entries(props).forEach(([key, value]) => {
-    if (key === "class") elm.classList.add(...value);
-    else elm.setAttribute(key, value);
+    if (key === "class" && Array.isArray(key)) {
+      elm.classList.add(...value);
+    } else if (key === "class" && !Array.isArray(key)) {
+      elm.classList.add(value);
+    } else if (key !== "class") {
+      elm.setAttribute(key, value);
+    }
   });
 };
 
