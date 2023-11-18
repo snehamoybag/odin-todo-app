@@ -4,6 +4,24 @@ import { getTodayDate, getWeekNumOfYear } from "./dates";
 const todosKey = "todos";
 let todos = [];
 
+export const createTodoObj = (
+  title,
+  description,
+  dueDate,
+  dueTime,
+  priority,
+  inProject,
+  isCompleted
+) => ({
+  title,
+  description,
+  dueDate,
+  dueTime,
+  priority,
+  inProject,
+  isCompleted,
+});
+
 export const getAllTodos = () => todos;
 
 export const getTodayTodos = () =>
@@ -42,29 +60,31 @@ export const deleteTodo = (deleteTodoObj) => {
   }
 };
 
+export const updateTodoCompletionStatus = (todoObj) => {
+  const updatedTodoObj = todoObj; // to ignore es-lint function parameter modification error
+  const indexOfUpdatedTodoObj = todos.indexOf(todoObj);
+
+  // chanege the status to true or false. set to true if it was false and vice-versa
+  updatedTodoObj.isCompleted = !updatedTodoObj.isCompleted;
+
+  // replace the original with the updated one
+  if (indexOfUpdatedTodoObj >= 0) {
+    todos.splice(indexOfUpdatedTodoObj, 1, updatedTodoObj);
+    syncTodos();
+  }
+};
+
 export const checkTodoEdit = (ogTodoObj, newTodoObj) => {
-  const differences = Object.keys(ogTodoObj).filter(
-    (key) => ogTodoObj[key] !== newTodoObj[key]
-  );
+  const differences = Object.keys(ogTodoObj).filter((key) => {
+    let isDifferent = false;
+    // ignore the completion status while finding a difference in keys values
+    if (key !== "isCompleted") isDifferent = ogTodoObj[key] !== newTodoObj[key];
+    return isDifferent;
+  });
+
   const isEdited = differences.length > 0;
   return isEdited;
 };
-
-export const createTodoObj = (
-  title,
-  description,
-  dueDate,
-  dueTime,
-  priority,
-  inProject
-) => ({
-  title,
-  description,
-  dueDate,
-  dueTime,
-  priority,
-  inProject,
-});
 
 const updateTodosEventListenerEl = document.body;
 const updateTodosEventName = "update-projects";

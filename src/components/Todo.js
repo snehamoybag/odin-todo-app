@@ -2,6 +2,7 @@ import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
 import TodoDetailsModal from "./TodoDetailsModal";
+import CheckTodo from "./CheckTodo";
 
 const Todo = (todoObj) => {
   const todoContainerEl = document.createElement("li");
@@ -40,7 +41,7 @@ const Todo = (todoObj) => {
     dispatchUpdateTodosEvent();
   });
 
-  textsWrapperEl.append(todoTitleEl, todoDueEl);
+  textsWrapperEl.append(CheckTodo(todoObj), todoTitleEl, todoDueEl);
   btnsWrapperEl.append(detailsBtnEl, editBtnEl, deleteBtnEl);
   todoBodyEl.append(textsWrapperEl, btnsWrapperEl);
   todoContainerEl.append(todoBodyEl);

@@ -2,9 +2,18 @@ import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { closeAndRemoveModal } from "../scripts/utilities";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
+import CheckTodo from "./CheckTodo";
 
 const TodoDetailsModal = (todoObj) => {
-  const { title, description, dueDate, dueTime, priority, inProject } = todoObj;
+  const {
+    title,
+    description,
+    dueDate,
+    dueTime,
+    priority,
+    inProject,
+    isCompleted,
+  } = todoObj;
   const modalEl = document.createElement("dialog");
   const articleEl = document.createElement("article");
   const titleEl = document.createElement("h2");
@@ -12,10 +21,17 @@ const TodoDetailsModal = (todoObj) => {
   const dueDateTimeEl = document.createElement("p");
   const inProjectEl = document.createElement("p");
   const priorityEl = document.createElement("P");
+  const completionStatusEl = document.createElement("p");
   const btnsWrapperEl = document.createElement("div");
+  const checkTodoEl = CheckTodo(todoObj);
+  const checkTodoLabelEl = document.createElement("label");
+  const checkTodoElIdName = "check-todo-from-todo-details";
   const closeBtnEl = document.createElement("button");
   const editBtnEl = document.createElement("button");
   const deleteBtnEl = document.createElement("button");
+
+  checkTodoEl.id = checkTodoElIdName;
+  checkTodoLabelEl.for = checkTodoElIdName;
 
   titleEl.textContent = title;
   descriptionEl.textContent = description;
@@ -23,7 +39,13 @@ const TodoDetailsModal = (todoObj) => {
     Date.parse(dueDate, dueTime)
   );
   inProjectEl.textContent = `In Project ${inProject}`;
-  priorityEl.textContent = `Priority; ${priority}`;
+  priorityEl.textContent = `Priority: ${priority}`;
+  completionStatusEl.textContent = `Status: ${
+    isCompleted ? "Completed" : "Incomplete"
+  }`;
+  checkTodoLabelEl.textContent = isCompleted
+    ? "Unmark as complete"
+    : "Mark as complete";
   closeBtnEl.textContent = "Close";
   editBtnEl.textContent = "Edit";
   deleteBtnEl.textContent = "Delete";
@@ -45,6 +67,7 @@ const TodoDetailsModal = (todoObj) => {
     closeAndRemoveModal(modalEl);
   });
 
+  checkTodoLabelEl.prepend(checkTodoEl);
   articleEl.append(
     dueDateTimeEl,
     titleEl,
@@ -52,7 +75,7 @@ const TodoDetailsModal = (todoObj) => {
     inProjectEl,
     priorityEl
   );
-  btnsWrapperEl.append(closeBtnEl, editBtnEl, deleteBtnEl);
+  btnsWrapperEl.append(checkTodoLabelEl, closeBtnEl, editBtnEl, deleteBtnEl);
   modalEl.append(articleEl, btnsWrapperEl);
 
   return modalEl;

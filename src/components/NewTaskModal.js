@@ -18,7 +18,7 @@ import { snakeCase, closeAndRemoveModal } from "../scripts/utilities";
 import NewProjectModal from "./NewProjectModal";
 
 const NewTaskModal = (todoObj = {}) => {
-  // destructure all the props with default values from todoObj
+  // destructure the props with default values from todoObj
   // default values are only applied when a property is 'undefined'
   const {
     title = "",
@@ -27,6 +27,7 @@ const NewTaskModal = (todoObj = {}) => {
     dueTime = "",
     priority = "",
     inProject = "",
+    isCompleted = false,
   } = todoObj;
 
   const taskModalEl = document.createElement("dialog");
@@ -145,13 +146,14 @@ const NewTaskModal = (todoObj = {}) => {
       taskDueDate,
       taskDueTime,
       taskPriority,
-      taskInProject
+      taskInProject,
+      isCompleted
     );
 
     const isTaskEdited = checkTodoEdit(todoObj, task);
 
     if (!title) {
-      // always add the new todo on top of the list
+      // always add the newly created todo on top of the list
       addTodo(task);
     } else if (title && isTaskEdited) {
       // add edied todo on top of the list, only when user has successfully edited the todo
