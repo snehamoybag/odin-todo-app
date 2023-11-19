@@ -1,5 +1,7 @@
-import { setActiveSortingOption } from "../scripts/todos";
-import { dispatchUpdateTodosEvent } from "../scripts/todos";
+import {
+  setActiveSortingOption,
+  dispatchUpdateTodosEvent,
+} from "../scripts/todos";
 
 const SortTodos = () => {
   const wrapperEl = document.createElement("p");
