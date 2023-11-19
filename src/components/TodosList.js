@@ -2,6 +2,7 @@ import {
   getAllTodos,
   getTodayTodos,
   getThisWeekTodo,
+  getCompletedTodos,
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
@@ -38,3 +39,5 @@ export const todoListThisWeek = () => generateTodosListEl(getThisWeekTodo);
 
 export const todoListInProject = (projectName) =>
   generateTodosListEl(() => getTodosByProjectName(projectName));
+
+export const todoListCompleted = () => generateTodosListEl(getCompletedTodos);

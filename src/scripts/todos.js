@@ -42,6 +42,9 @@ export const getThisWeekTodo = () =>
 export const getTodosByProjectName = (projectName) =>
   todos.filter((todoObj) => todoObj.inProject === projectName);
 
+export const getCompletedTodos = () =>
+  todos.filter((todoObj) => todoObj.isCompleted);
+
 const syncTodos = () => {
   todos = storeAndSyncData(todos, todosKey);
 };
