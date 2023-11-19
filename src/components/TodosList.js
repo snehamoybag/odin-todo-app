@@ -3,6 +3,11 @@ import {
   getTodayTodos,
   getThisWeekTodo,
   getCompletedTodos,
+  getActiveSortingOption,
+  sortDueDate,
+  sortPriority,
+  sortNewestToOldest,
+  sortOldestToNewest,
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
@@ -13,8 +18,34 @@ const generateTodosListEl = (getTodosDataFunc) => {
 
   listEl.classList.add("todos");
 
+  const getSortedTodos = () => {
+    const todos = getTodosDataFunc();
+    const activeSortingOption = getActiveSortingOption();
+    let sortedTodos = todos; // default
+
+    switch (activeSortingOption) {
+      case "Priority: High to Low":
+        sortedTodos = sortPriority(todos, "high");
+        break;
+      case "Priority: Low to High":
+        sortedTodos = sortPriority(todos, "low");
+        break;
+      case "Due Date":
+        sortedTodos = sortDueDate(todos);
+        break;
+      case "Oldest to Newest":
+        sortedTodos = sortOldestToNewest(todos);
+        break;
+      default:
+        sortedTodos = sortNewestToOldest(todos);
+        break;
+    }
+
+    return sortedTodos;
+  };
+
   const renderTodos = () => {
-    getTodosDataFunc().forEach((todoData) => {
+    getSortedTodos().forEach((todoData) => {
       listEl.append(Todo(todoData));
     });
   };

@@ -1,6 +1,7 @@
 import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import NewTaskModal from "./components/NewTaskModal";
+import SortTodos from "./components/SortTodos";
 import { TodoListContainer } from "./components/TodoListContainer";
 import { todosListAll } from "./components/TodosList";
 
@@ -21,7 +22,7 @@ const App = () => {
 
   headerEl.append(Logo(), Nav());
   todosListContainerEl.append(todosListAll());
-  mainEl.append(openModalBtn, todosListContainerEl);
+  mainEl.append(openModalBtn, SortTodos(), todosListContainerEl);
   appContainerEl.append(headerEl, mainEl);
 
   return appContainerEl;

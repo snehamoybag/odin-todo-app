@@ -39,13 +39,17 @@ const ProjectList = () => {
     return listItemEl;
   };
 
+  const listWrapperEl = document.createElement("figure");
+  const listTitleEl = document.createElement("figcaption");
   const listEl = document.createElement("ul");
 
   listEl.classList.add("projects-list");
+  listWrapperEl.classList.add("projects-list__wrapper");
+  listTitleEl.classList.add("projects-list__title");
+
+  listTitleEl.textContent = "Projects";
 
   const renderProjectListIems = () => {
-    listEl.textContent = "Projects"; // making sure it doesn't get removed when using `innerHTMl = ""` while re-rendering
-
     getProjects().forEach((project) => {
       if (project !== inBuiltProject) {
         listEl.append(createProjectListItemEl(project));
@@ -65,7 +69,9 @@ const ProjectList = () => {
   listenUpdateTodosEvent(reRenderProjectListItems);
   listenUpdateProjectsEvent(reRenderProjectListItems);
 
-  return listEl;
+  listWrapperEl.append(listTitleEl, listEl);
+
+  return listWrapperEl;
 };
 
 export default ProjectList;

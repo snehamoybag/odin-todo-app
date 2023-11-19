@@ -1,3 +1,4 @@
+import { compareAsc } from "date-fns";
 import { storeAndSyncData } from "./utilities";
 import { getTodayDate, getWeekNumOfYear } from "./dates";
 
@@ -87,6 +88,53 @@ export const checkTodoEdit = (ogTodoObj, newTodoObj) => {
 
   const isEdited = differences.length > 0;
   return isEdited;
+};
+
+let activeSortingOption = "Newest to Oldest"; // default value
+
+export const getActiveSortingOption = () => activeSortingOption;
+export const setActiveSortingOption = (newOption) => {
+  activeSortingOption = newOption;
+};
+
+export const sortDueDate = (todosArr) => {
+  const clonedTodosArr = [...todosArr]; // since Array.sort() mutates the original array
+
+  return clonedTodosArr.sort((a, b) =>
+    compareAsc(
+      Date.parse(a.dueDate, a.dueTime),
+      Date.parse(b.dueDate, b.dueTime)
+    )
+  );
+};
+
+export const sortPriority = (todosArr, sortingOrder) => {
+  const getPriorityValue = (priority) => {
+    const priorityValues = {
+      high: 2,
+      mid: 1,
+      low: 0,
+    };
+
+    return priorityValues[priority];
+  };
+
+  const clonedArr = [...todosArr];
+  const priorityLowToHighTodos = clonedArr.sort(
+    (a, b) => getPriorityValue(a.priority) - getPriorityValue(b.priority)
+  );
+  const priorityHighToLowTodos = [...priorityLowToHighTodos].reverse(); // since Array.reserve() mutates original array
+
+  if (sortingOrder.toLowerCase() === "high") return priorityHighToLowTodos;
+  if (sortingOrder.toLowerCase() === "low") return priorityLowToHighTodos;
+  return null; // anything else
+};
+
+export const sortNewestToOldest = (todosArr) => todosArr; // todos are sorted newest to oldest by default
+
+export const sortOldestToNewest = (todosArr) => {
+  const clonedTodosArr = [...todosArr]; // since Array.reverse() mutates the original array
+  return clonedTodosArr.reverse();
 };
 
 const updateTodosEventListenerEl = document.body;
