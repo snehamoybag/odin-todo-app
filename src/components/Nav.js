@@ -6,6 +6,7 @@ import {
   todoListThisWeek,
   todoListCompleted,
 } from "./TodosList";
+import ButtonHambuger from "./ButtonHamburger";
 import ProjectList from "./ProjectList";
 
 const Nav = () => {
@@ -37,13 +38,24 @@ const Nav = () => {
 
   const navEl = document.createElement("nav");
   const navListEl = document.createElement("ul");
+  const navListElId = "todo-filter-list";
   const allLinkEl = getNavLinkItem("All");
   const todayLinkEl = getNavLinkItem("Today");
   const thisWeekLinkEl = getNavLinkItem("This Week");
   const completedLinkEl = getNavLinkItem("Completed");
+  const hamburgerBtnEl = ButtonHambuger("Menu", navListElId);
 
-  navEl.classList.add("nav");
-  navListEl.classList.add("nav__list");
+  setElementProps(navEl, {
+    class: "nav",
+    "aria-label": "Header",
+  });
+
+  setElementProps(navListEl, {
+    id: navListElId,
+    role: "list",
+    class: "nav__list",
+    "data-state": "close", // used in css to show and hide the list. closed by default
+  });
 
   allLinkEl.addEventListener("click", (e) =>
     renderNewTodoList(e, todosListAll())
@@ -68,7 +80,7 @@ const Nav = () => {
     ProjectList(),
     completedLinkEl
   );
-  navEl.append(navListEl);
+  navEl.append(hamburgerBtnEl, navListEl);
 
   return navEl;
 };

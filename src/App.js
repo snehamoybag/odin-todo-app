@@ -12,6 +12,8 @@ const App = () => {
   const todosListContainerEl = TodoListContainer();
   const openModalBtn = document.createElement("button");
 
+  headerEl.classList.add("header");
+
   openModalBtn.textContent = "add new todo";
 
   openModalBtn.addEventListener("click", () => {
