@@ -16,7 +16,7 @@ import Todo from "./Todo";
 const generateTodosListEl = (getTodosDataFunc) => {
   const listEl = document.createElement("ol");
 
-  listEl.classList.add("todos");
+  listEl.classList.add("todo-list");
 
   const getSortedTodos = () => {
     const todos = getTodosDataFunc();

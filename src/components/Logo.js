@@ -14,7 +14,7 @@ const Logo = () => {
 
   logoTextEl.textContent = "Todo App";
 
-  logoContainerEl.append(logoImg, logoTextEl);
+  logoContainerEl.append(logoTextEl, logoImg);
 
   return logoContainerEl;
 };

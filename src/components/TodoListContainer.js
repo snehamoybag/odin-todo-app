@@ -4,7 +4,7 @@ export const TodoListContainer = () => {
   const containerEl = document.createElement("div");
 
   containerEl.id = todoListContainerId;
-  containerEl.classList.add("todos__container");
+  containerEl.classList.add("todo-list-container");
 
   return containerEl;
 };

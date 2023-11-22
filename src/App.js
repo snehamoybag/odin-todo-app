@@ -1,4 +1,3 @@
-import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import NewTaskModal from "./components/NewTaskModal";
 import SortTodos from "./components/SortTodos";
@@ -22,7 +21,7 @@ const App = () => {
     newTaskModalEl.showModal();
   });
 
-  headerEl.append(Logo(), Nav());
+  headerEl.append(Nav());
   todosListContainerEl.append(todosListAll());
   mainEl.append(openModalBtn, SortTodos(), todosListContainerEl);
   appContainerEl.append(headerEl, mainEl);

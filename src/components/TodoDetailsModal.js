@@ -36,7 +36,7 @@ const TodoDetailsModal = (todoObj) => {
   titleEl.textContent = title;
   descriptionEl.textContent = description;
   dueDateTimeEl.textContent = getFormatedDueDateAndTime(
-    Date.parse(dueDate, dueTime)
+    Date.parse(`${dueDate} ${dueTime}`)
   );
   inProjectEl.textContent = `In Project ${inProject}`;
   priorityEl.textContent = `Priority: ${priority}`;

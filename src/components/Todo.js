@@ -1,3 +1,4 @@
+import { pascalCase } from "../scripts/utilities";
 import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
@@ -8,16 +9,28 @@ const Todo = (todoObj) => {
   const todoContainerEl = document.createElement("li");
   const todoBodyEl = document.createElement("article");
   const textsWrapperEl = document.createElement("div");
+  const checkTodoEl = CheckTodo(todoObj);
   const todoTitleEl = document.createElement("h2");
   const todoDueEl = document.createElement("p");
+  const priorityEl = document.createElement("p");
   const btnsWrapperEl = document.createElement("div");
   const detailsBtnEl = document.createElement("button");
   const editBtnEl = document.createElement("button");
   const deleteBtnEl = document.createElement("button");
 
+  todoContainerEl.classList.add("todo-list__item");
+  checkTodoEl.classList.add("todo-list__item-check");
+  todoTitleEl.classList.add("todo-list__item-title");
+  priorityEl.classList.add("tod-list__itemk-priority");
+  todoDueEl.classList.add("todo-list__item-due-date");
+  textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
+  btnsWrapperEl.classList.add("todo-list__item-btns-wrapper");
+
+  console.log(Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`));
   todoTitleEl.textContent = todoObj.title;
+  priorityEl.textContent = pascalCase(todoObj.priority);
   todoDueEl.textContent = getFormatedDueDateAndTime(
-    Date.parse(todoObj.dueDate, todoObj.dueTime)
+    Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)
   );
   detailsBtnEl.textContent = "Details";
   editBtnEl.textContent = "Edit";
@@ -41,7 +54,7 @@ const Todo = (todoObj) => {
     dispatchUpdateTodosEvent();
   });
 
-  textsWrapperEl.append(CheckTodo(todoObj), todoTitleEl, todoDueEl);
+  textsWrapperEl.append(checkTodoEl, todoTitleEl, priorityEl, todoDueEl);
   btnsWrapperEl.append(detailsBtnEl, editBtnEl, deleteBtnEl);
   todoBodyEl.append(textsWrapperEl, btnsWrapperEl);
   todoContainerEl.append(todoBodyEl);

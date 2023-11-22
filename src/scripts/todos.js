@@ -3,7 +3,35 @@ import { storeAndSyncData } from "./utilities";
 import { getTodayDate, getWeekNumOfYear } from "./dates";
 
 const todosKey = "todos";
-let todos = [];
+let todos = [
+  {
+    title: "todo 1",
+    description: "bruh",
+    dueDate: "2023-11-21",
+    dueTime: "05:30",
+    priority: "high",
+    inProject: "Project 1",
+    isCompleted: false,
+  },
+  {
+    title: "todo 2",
+    description: "bruh",
+    dueDate: "2023-11-21",
+    dueTime: "06:30",
+    priority: "low",
+    inProject: "Project 2",
+    isCompleted: false,
+  },
+  {
+    title: "todo 3",
+    description: "bruh",
+    dueDate: "2023-11-21",
+    dueTime: "11:30",
+    priority: "mid",
+    inProject: "Project 3",
+    isCompleted: false,
+  },
+];
 
 export const createTodoObj = (
   title,
@@ -35,7 +63,7 @@ export const getThisWeekTodo = () =>
   todos.filter((todoObj) => {
     const currentWeekNum = getWeekNumOfYear(new Date());
     const weekNumOfDueDate = getWeekNumOfYear(
-      Date.parse(todoObj.dueDate, todoObj.dueTime)
+      Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)
     );
     return weekNumOfDueDate === currentWeekNum;
   });

@@ -1,4 +1,14 @@
 export const snakeCase = (string) => string.toLowerCase().split(" ").join("-");
+export const pascalCase = (string) => {
+  const words = string.toLowerCase().split(" ");
+  const pascalCasedWords = words.map((word) => {
+    const letters = word.split("");
+    letters[0] = letters[0].toUpperCase();
+    return letters.join("");
+  });
+
+  return pascalCasedWords.join(" ");
+};
 
 export const setElementProps = (elm, props = {}) => {
   Object.entries(props).forEach(([key, value]) => {

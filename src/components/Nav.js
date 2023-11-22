@@ -1,4 +1,5 @@
 import { snakeCase, setElementProps } from "../scripts/utilities";
+import Logo from "./Logo";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import {
   todosListAll,
@@ -20,14 +21,19 @@ const Nav = () => {
     DOMTodoListContainer.append(todoListEl);
   };
 
+  const getNavItem = () => {
+    const liEl = document.createElement("li");
+    liEl.classList.add("nav__list-item");
+    return liEl;
+  };
+
   const getNavLinkItem = (
     linkText,
     props = { id: snakeCase(linkText), class: "nav__link", href: "#" }
   ) => {
-    const listItemEl = document.createElement("li");
+    const listItemEl = getNavItem();
     const anchorEl = document.createElement("a");
 
-    listItemEl.classList.add("nav__item");
     setElementProps(anchorEl, props);
     anchorEl.textContent = linkText;
 
@@ -44,6 +50,7 @@ const Nav = () => {
   const thisWeekLinkEl = getNavLinkItem("This Week");
   const completedLinkEl = getNavLinkItem("Completed");
   const hamburgerBtnEl = ButtonHambuger("Menu", navListElId);
+  const projectsListItemEl = getNavItem();
 
   setElementProps(navEl, {
     class: "nav",
@@ -73,14 +80,15 @@ const Nav = () => {
     renderNewTodoList(e, todoListCompleted())
   );
 
+  projectsListItemEl.append(ProjectList());
   navListEl.append(
     allLinkEl,
     todayLinkEl,
     thisWeekLinkEl,
-    ProjectList(),
+    projectsListItemEl,
     completedLinkEl
   );
-  navEl.append(hamburgerBtnEl, navListEl);
+  navEl.append(hamburgerBtnEl, navListEl, Logo());
 
   return navEl;
 };
