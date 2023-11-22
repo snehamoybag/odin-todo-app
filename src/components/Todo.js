@@ -9,6 +9,7 @@ const Todo = (todoObj) => {
   const todoContainerEl = document.createElement("li");
   const todoBodyEl = document.createElement("article");
   const textsWrapperEl = document.createElement("div");
+  const checkTodoWrapperEl = document.createElement("label");
   const checkTodoEl = CheckTodo(todoObj);
   const todoTitleEl = document.createElement("h2");
   const todoDueEl = document.createElement("p");
@@ -19,14 +20,14 @@ const Todo = (todoObj) => {
   const deleteBtnEl = document.createElement("button");
 
   todoContainerEl.classList.add("todo-list__item");
-  checkTodoEl.classList.add("todo-list__item-check");
+  checkTodoWrapperEl.classList.add("todo-list__item-checkbox-wrapper");
+  checkTodoEl.classList.add("todo-list__item-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
-  priorityEl.classList.add("tod-list__itemk-priority");
+  priorityEl.classList.add("tod-list__item-priority");
   todoDueEl.classList.add("todo-list__item-due-date");
   textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
   btnsWrapperEl.classList.add("todo-list__item-btns-wrapper");
 
-  console.log(Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`));
   todoTitleEl.textContent = todoObj.title;
   priorityEl.textContent = pascalCase(todoObj.priority);
   todoDueEl.textContent = getFormatedDueDateAndTime(
@@ -54,9 +55,10 @@ const Todo = (todoObj) => {
     dispatchUpdateTodosEvent();
   });
 
-  textsWrapperEl.append(checkTodoEl, todoTitleEl, priorityEl, todoDueEl);
+  checkTodoWrapperEl.append(checkTodoEl);
+  textsWrapperEl.append(checkTodoWrapperEl, todoTitleEl, priorityEl);
   btnsWrapperEl.append(detailsBtnEl, editBtnEl, deleteBtnEl);
-  todoBodyEl.append(textsWrapperEl, btnsWrapperEl);
+  todoBodyEl.append(todoDueEl, textsWrapperEl, btnsWrapperEl);
   todoContainerEl.append(todoBodyEl);
   return todoContainerEl;
 };
