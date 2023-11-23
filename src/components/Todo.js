@@ -19,14 +19,33 @@ const Todo = (todoObj) => {
   const editBtnEl = document.createElement("button");
   const deleteBtnEl = document.createElement("button");
 
+  priorityEl.title = "Priority";
+
   todoContainerEl.classList.add("todo-list__item");
   checkTodoWrapperEl.classList.add("todo-list__item-checkbox-wrapper");
   checkTodoEl.classList.add("todo-list__item-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
-  priorityEl.classList.add("tod-list__item-priority");
+  priorityEl.classList.add("todo-list__item-priority");
   todoDueEl.classList.add("todo-list__item-due-date");
   textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
   btnsWrapperEl.classList.add("todo-list__item-btns-wrapper");
+
+  switch (todoObj.priority) {
+    case "low":
+      priorityEl.classList.add("low");
+      break;
+    case "mid":
+      priorityEl.classList.add("mid");
+      break;
+    default:
+      priorityEl.classList.add("high");
+      break;
+  }
+
+  if (todoObj.isCompleted) {
+    todoTitleEl.classList.add("strikethrough");
+    priorityEl.classList.add("hidden");
+  }
 
   todoTitleEl.textContent = todoObj.title;
   priorityEl.textContent = pascalCase(todoObj.priority);

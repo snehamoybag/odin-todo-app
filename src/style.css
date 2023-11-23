@@ -7,11 +7,19 @@
   --hsl-clr-primary-300: 213, 30%, 70%;
   --hsl-clr-primary-200: 213, 30%, 85%;
 
+  --hsl-clr-danger: 0, 50%, 67%;
+  --hsl-clr-success: 120, 50%, 64%;
+  --hsl-clr-warning: 50, 50%, 65%;
+
   --clr-primary-700: hsl(var(--hsl-clr-primary-700));
   --clr-primary-600: hsl(var(--hsl-clr-primary-600));
   --clr-primary-400: hsl(var(--hsl-clr-primary-400));
   --clr-primary-300: hsl(var(--hsl-clr-primary-300));
   --clr-primary-200: hsl(var(--hsl-clr-primary-200));
+
+  --clr-danger: hsl(var(--hsl-clr-danger));
+  --clr-success: hsl(var(--hsl-clr-success));
+  --clr-warning: hsl(var(--hsl-clr-warning));
 
   --ff-title: "Oswald", sans-serif;
   --ff-body: "Lora", serif;
@@ -20,6 +28,7 @@
   --fs-600: 1.1rem;
   --fs-400: 0.75rem;
   --fs-200: 0.625rem;
+  --fs-100: 0.25rem;
 
   --fw-bold: 700;
   --fw-regular: 400;
@@ -199,12 +208,6 @@ a:active {
   gap: 1rem;
 }
 
-.todo-list__item-title {
-  font-size: var(--fs-600);
-  color: var(--clr-primary-200);
-  letter-spacing: 0.05em;
-}
-
 .todo-list__item-checkbox-wrapper {
   --size: 1.5rem;
   width: var(--size);
@@ -248,7 +251,46 @@ a:active {
   transform: translateY(-0.3rem);
 }
 
+.todo-list__item-title {
+  font-size: var(--fs-600);
+  color: var(--clr-primary-200);
+  letter-spacing: 0.05em;
+}
+
+.todo-list__item-title.strikethrough {
+  color: var(--clr-primary-400);
+  text-decoration: line-through;
+}
+
+.todo-list__item-priority {
+  font-size: var(--fs-100);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--clr);
+  transform: translate(-4px, -8px);
+  padding: 0.25em 1em;
+  border: solid 1px var(--clr);
+  opacity: 0.75;
+}
+
+.todo-list__item-priority.low {
+  --clr: var(--clr-success);
+}
+
+.todo-list__item-priority.mid {
+  --clr: var(--clr-warning);
+}
+
+.todo-list__item-priority.high {
+  --clr: var(--clr-danger);
+}
+
 .todo-list__item-btns-wrapper {
   grid-area: btn-wrapper;
   align-self: end;
+}
+
+.hidden {
+  display: none;
 }
