@@ -22,13 +22,16 @@ const Todo = (todoObj) => {
   priorityEl.title = "Priority";
 
   todoContainerEl.classList.add("todo-list__item");
-  checkTodoWrapperEl.classList.add("todo-list__item-checkbox-wrapper");
-  checkTodoEl.classList.add("todo-list__item-checkbox");
+  checkTodoWrapperEl.classList.add("todo-checkbox__wrapper");
+  checkTodoEl.classList.add("todo-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
-  priorityEl.classList.add("todo-list__item-priority");
+  priorityEl.classList.add("priority-chip");
   todoDueEl.classList.add("todo-list__item-due-date");
   textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
   btnsWrapperEl.classList.add("todo-list__item-btns-wrapper");
+  detailsBtnEl.classList.add("todo-list__item-btn", "details");
+  editBtnEl.classList.add("todo-list__item-btn", "edit");
+  deleteBtnEl.classList.add("todo-list__item-btn", "delete");
 
   switch (todoObj.priority) {
     case "low":
