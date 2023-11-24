@@ -12,9 +12,9 @@ export const pascalCase = (string) => {
 
 export const setElementProps = (elm, props = {}) => {
   Object.entries(props).forEach(([key, value]) => {
-    if (key === "class" && Array.isArray(key)) {
+    if (key === "class" && Array.isArray(value)) {
       elm.classList.add(...value);
-    } else if (key === "class" && !Array.isArray(key)) {
+    } else if (key === "class" && !Array.isArray(value)) {
       elm.classList.add(value);
     } else if (key !== "class") {
       elm.setAttribute(key, value);
