@@ -1,3 +1,4 @@
+import { setElementProps } from "../scripts/utilities";
 import {
   setActiveSortingOption,
   dispatchUpdateTodosEvent,
@@ -15,13 +16,22 @@ const SortTodos = () => {
   const optSortByNewToOldEl = document.createElement("option");
   const optPlaceholderEl = document.createElement("option");
 
-  sortElLabelEl.for = sortElId;
+  wrapperEl.classList.add("todos-sorter-wrapper");
+  setElementProps(sortElLabelEl, {
+    for: sortElId,
+  });
+  setElementProps(sortEl, {
+    id: sortElId,
+    name: sortElId,
+    class: "todos-sorter",
+  });
+
   sortEl.id = sortElId;
   sortEl.name = sortElId;
   optPlaceholderEl.disabled = true;
   optSortByNewToOldEl.selected = true; // by default newest to oldest is selected
 
-  sortElLabelEl.textContent = "Sort by: ";
+  sortElLabelEl.textContent = "Sort by";
   optPlaceholderEl.textContent = "--Select one--";
   optSortByDueDateEl.textContent = "Due Date";
   optSortByPriorityHighToLowEl.textContent = "Priority: High to Low";

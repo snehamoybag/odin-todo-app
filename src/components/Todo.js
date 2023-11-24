@@ -25,6 +25,7 @@ const Todo = (todoObj) => {
   checkTodoWrapperEl.classList.add("todo-checkbox__wrapper");
   checkTodoEl.classList.add("todo-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
+  if (todoObj.isCompleted) todoTitleEl.classList.add("strikethrough");
   priorityEl.classList.add("priority-chip");
   todoDueEl.classList.add("todo-list__item-due-date");
   textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
@@ -43,11 +44,6 @@ const Todo = (todoObj) => {
     default:
       priorityEl.classList.add("high");
       break;
-  }
-
-  if (todoObj.isCompleted) {
-    todoTitleEl.classList.add("strikethrough");
-    priorityEl.classList.add("hidden");
   }
 
   todoTitleEl.textContent = todoObj.title;
@@ -78,7 +74,8 @@ const Todo = (todoObj) => {
   });
 
   checkTodoWrapperEl.append(checkTodoEl);
-  textsWrapperEl.append(checkTodoWrapperEl, todoTitleEl, priorityEl);
+  textsWrapperEl.append(checkTodoWrapperEl, todoTitleEl);
+  if (!todoObj.isCompleted) textsWrapperEl.append(priorityEl);
   btnsWrapperEl.append(detailsBtnEl, editBtnEl, deleteBtnEl);
   todoBodyEl.append(todoDueEl, textsWrapperEl, btnsWrapperEl);
   todoContainerEl.append(todoBodyEl);

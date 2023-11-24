@@ -1,3 +1,4 @@
+import { setElementProps } from "./scripts/utilities";
 import Nav from "./components/Nav";
 import NewTaskModal from "./components/NewTaskModal";
 import SortTodos from "./components/SortTodos";
@@ -8,14 +9,21 @@ const App = () => {
   const appContainerEl = document.createElement("div");
   const headerEl = document.createElement("header");
   const mainEl = document.createElement("main");
+  const newTaskBtnEl = document.createElement("button");
+  const srOnlyEl = document.createElement("span");
   const todosListContainerEl = TodoListContainer();
-  const openModalBtn = document.createElement("button");
 
   headerEl.classList.add("header");
+  setElementProps(newTaskBtnEl, {
+    type: "button",
+    title: "Add A New Task",
+    class: "btn-new-task",
+  });
+  srOnlyEl.classList.add("sr-only");
 
-  openModalBtn.textContent = "add new todo";
+  srOnlyEl.textContent = "Add A New Task";
 
-  openModalBtn.addEventListener("click", () => {
+  newTaskBtnEl.addEventListener("click", () => {
     const newTaskModalEl = NewTaskModal();
     mainEl.append(newTaskModalEl);
     newTaskModalEl.showModal();
@@ -23,7 +31,8 @@ const App = () => {
 
   headerEl.append(Nav());
   todosListContainerEl.append(todosListAll());
-  mainEl.append(openModalBtn, SortTodos(), todosListContainerEl);
+  newTaskBtnEl.append(srOnlyEl);
+  mainEl.append(newTaskBtnEl, SortTodos(), todosListContainerEl);
   appContainerEl.append(headerEl, mainEl);
 
   return appContainerEl;

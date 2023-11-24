@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora&family=Oswald:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=PT+Serif:wght@400;700&display=swap");
 
 :root {
   --hsl-clr-primary-700: 225, 59%, 11%;
@@ -26,7 +26,7 @@
   --clr-warning: hsl(var(--hsl-clr-warning));
 
   --ff-title: "Oswald", sans-serif;
-  --ff-body: "Lora", serif;
+  --ff-body: "PT Serif", serif;
 
   --fs-700: 1.5rem;
   --fs-600: 1.1rem;
@@ -72,6 +72,7 @@ svg {
 
 input,
 textarea,
+select,
 button {
   font: inherit;
 }
@@ -154,6 +155,77 @@ a:active {
 
 .nav__list-item:hover {
   background-color: var(--clr-primary-600);
+}
+
+.btn-new-task {
+  --size: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--clr-accent-400);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 3px 5px 10px hsla(var(--hsl-clr-primary-700), 0.25);
+  position: fixed;
+  bottom: 5vh; /* fallback if svh is not supported */
+  bottom: 5svh;
+  right: 5vw;
+}
+
+.btn-new-task::before {
+  --size: 70%;
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  background-image: url(./assets/icon-plus-solid.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.btn-new-task:hover {
+  cursor: pointer;
+  background-color: var(--clr-success);
+}
+
+.btn-new-task:active {
+  box-shadow: none;
+  transform: scale(0.95);
+}
+
+.todos-sorter-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.5em;
+  margin-top: 1.5rem;
+}
+
+.todos-sorter-wrapper > label {
+  font-weight: var(--fw-bold);
+}
+
+.todos-sorter {
+  --border-clr: var(--clr-primary-300);
+  background-color: transparent;
+  color: var(--clr-primary-200);
+  padding: 0.75em 1em;
+  border: 2px solid var(--border-clr);
+  border-radius: 100vh;
+}
+
+.todos-sorter:hover,
+.todos-sorter:focus {
+  --border-clr: var(--clr-accent-400);
+  cursor: pointer;
+  outline: none;
+}
+
+.todos-sorter option {
+  background-color: var(--clr-primary-400);
+  color: var(--clr-primary-200);
 }
 
 .todo-list-container {
@@ -347,6 +419,14 @@ a:active {
   --clr: var(--clr-danger);
 }
 
-.hidden {
-  display: none;
+/* Hiding class, making content visible only to screen readers but not visually */
+/* "sr" meaning "screen-reader" */
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
