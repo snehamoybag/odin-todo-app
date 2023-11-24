@@ -16,7 +16,7 @@ const App = () => {
   headerEl.classList.add("header");
   setElementProps(newTaskBtnEl, {
     type: "button",
-    title: "Add A New Task",
+    title: "Add a new task",
     class: "btn-new-task",
   });
   srOnlyEl.classList.add("sr-only");

@@ -9,11 +9,12 @@ const ButtonHambuger = (btnText, controlledElId) => {
     type: "button",
     "aria-controls": controlledElId,
     "aria-expanded": false, // controlled element hidden by default
-    class: ["btn", "btn--hamburger"],
+    class: "btn-hamburger",
+    title: "Toggle navigation menu",
   });
 
   srOnlyEl.classList.add("sr-only");
-  buttonLinesEl.classList.add("btn--hamburger_lines");
+  buttonLinesEl.classList.add("btn-hamburger__lines");
 
   srOnlyEl.textContent = btnText;
 

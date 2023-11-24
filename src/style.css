@@ -120,7 +120,7 @@ a:active {
   --nav-height: 6rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   background-color: var(--clr-primary-700);
   height: var(--nav-height);
   padding: 0 1.5em;
@@ -417,6 +417,61 @@ a:active {
 
 .priority-chip.high {
   --clr: var(--clr-danger);
+}
+
+.btn-hamburger {
+  --size: 2rem;
+  --line-thickness: 1.5px;
+  --line-clr: var(--clr-primary-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--size);
+  height: var(--size);
+  background-color: transparent;
+  border: var(--line-thickness) solid var(--line-clr);
+  position: relative;
+}
+
+.btn-hamburger__lines,
+.btn-hamburger__lines::before,
+.btn-hamburger__lines::after {
+  display: block;
+  width: 65%;
+  height: var(--line-thickness);
+  background-color: var(--line-clr);
+}
+
+.btn-hamburger__lines::before,
+.btn-hamburger__lines::after {
+  content: "";
+  position: absolute;
+  transition: transform 200ms linear;
+}
+
+.btn-hamburger__lines {
+  transition: background-color 200ms linear 50ms;
+}
+
+.btn-hamburger__lines::before {
+  transform: translateY(-0.35rem);
+}
+
+.btn-hamburger__lines::after {
+  transform: translateY(0.35rem);
+}
+
+.btn-hamburger[aria-expanded="true"] .btn-hamburger__lines {
+  background-color: transparent;
+  transition-duration: 0ms;
+}
+
+.btn-hamburger[aria-expanded="true"] .btn-hamburger__lines::before {
+  transform: rotate(45deg);
+}
+
+.btn-hamburger[aria-expanded="true"] .btn-hamburger__lines::after {
+  transform: rotate(-45deg);
 }
 
 /* Hiding class, making content visible only to screen readers but not visually */
