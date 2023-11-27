@@ -36,6 +36,8 @@
 
   --fw-bold: 700;
   --fw-regular: 400;
+
+  --nav-height: 6rem;
 }
 
 *,
@@ -117,7 +119,6 @@ a:active {
 }
 
 .nav {
-  --nav-height: 6rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -264,34 +265,33 @@ a:active {
   margin-bottom: 0;
 }
 
-.todo-list__item > * {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "text-wrapper due" "btn-wrapper btn-wrapper";
-  row-gap: 2rem;
-  column-gap: 1rem;
-  align-items: start;
+/* select all directe children except for the first one */
+.todo-list__item-body > * + * {
+  margin-top: 1.25rem;
 }
 
 .todo-list__item-due-date {
-  grid-area: due;
   font-size: var(--fs-200);
   color: var(--clr-primary-300);
   text-align: right;
 }
 
 .todo-list__item-texts-wrapper {
-  grid-area: text-wrapper;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.todo-list__item-texts-wrapper .todo-checkbox-wrapper {
+  flex-shrink: 0;
 }
 
 .todo-list__item-title {
+  min-width: 0; /* width is required for word break to work, since it is a flex-item */
   font-size: var(--fs-600);
   color: var(--clr-primary-200);
+  display: block;
+  overflow-wrap: break-word;
   letter-spacing: 0.05em;
 }
 
@@ -302,8 +302,6 @@ a:active {
 }
 
 .todo-list__item-btns-wrapper {
-  grid-area: btn-wrapper;
-  align-self: end;
   display: flex;
   gap: 0.5rem;
 }
@@ -348,8 +346,75 @@ a:active {
   --clr: var(--clr-danger);
 }
 
-.todo-checkbox__wrapper {
+.modal-todo-details {
+  width: 100vw;
+  height: 75svh;
+  height: 75vh;
+  background-color: var(--clr-primary-600);
+  color: var(--clr-primary-200);
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 8px 12px 10px hsla(var(--hsl-clr-primary-700), 0.25);
+  top: calc(var(--nav-height) + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modal-todo-details__due-date {
+  padding: 1.5em 2em;
+  background-color: var(--clr-primary-700);
+  text-align: right;
+  box-shadow: 0 5px 5px hsla(var(--hsl-clr-primary-700), 0.25);
+}
+
+.modal-todo-details__texts-wrapper {
+  padding: 2em;
+}
+
+.modal-todo-details__title,
+.modal-todo-details__description {
+  /* prevent extra-long long words from overflowing */
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+.modal-todo-details__title {
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.modal-todo-details__title::before {
+  content: "Title";
+  font-family: var(--ff-body);
+  font-size: var(--fs-100);
+  color: var(--clr-accent-400);
+  padding: 0.25em 0.5em;
+  border: 0.5px solid;
+  position: absolute;
+  transform: translate(-1rem, -1rem);
+  opacity: 0.75;
+}
+
+.modal-todo-details__description {
+  text-indent: 1em;
+  margin-top: 0.5rem;
+}
+
+.modal-todo-details__btns-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+  background-color: var(--clr-primary-700);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.todo-checkbox-wrapper {
   --size: 1.5rem;
+  display: block;
   width: var(--size);
   height: var(--size);
   position: relative;

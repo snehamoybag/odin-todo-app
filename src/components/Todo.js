@@ -1,4 +1,4 @@
-import { pascalCase } from "../scripts/utilities";
+import { titleCase, turncateString } from "../scripts/utilities";
 import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
 import NewTaskModal from "./NewTaskModal";
@@ -22,7 +22,8 @@ const Todo = (todoObj) => {
   priorityEl.title = "Priority";
 
   todoContainerEl.classList.add("todo-list__item");
-  checkTodoWrapperEl.classList.add("todo-checkbox__wrapper");
+  todoBodyEl.classList.add("todo-list__item-body");
+  checkTodoWrapperEl.classList.add("todo-checkbox-wrapper");
   checkTodoEl.classList.add("todo-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
   if (todoObj.isCompleted) todoTitleEl.classList.add("strikethrough");
@@ -46,8 +47,8 @@ const Todo = (todoObj) => {
       break;
   }
 
-  todoTitleEl.textContent = todoObj.title;
-  priorityEl.textContent = pascalCase(todoObj.priority);
+  todoTitleEl.textContent = turncateString(todoObj.title, 50);
+  priorityEl.textContent = titleCase(todoObj.priority);
   todoDueEl.textContent = getFormatedDueDateAndTime(
     Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)
   );

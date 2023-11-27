@@ -1,13 +1,20 @@
-export const snakeCase = (string) => string.toLowerCase().split(" ").join("-");
-export const pascalCase = (string) => {
+export const kebabCase = (string) => string.toLowerCase().split(" ").join("-");
+
+export const titleCase = (string) => {
   const words = string.toLowerCase().split(" ");
-  const pascalCasedWords = words.map((word) => {
-    const letters = word.split("");
-    letters[0] = letters[0].toUpperCase();
-    return letters.join("");
+  const titleCasedWords = words.map((word) => {
+    const firstLetter = word[0];
+    const restOfLetters = word.slice(1);
+    const titleCaseWord = firstLetter.toUpperCase() + restOfLetters;
+    return titleCaseWord;
   });
 
-  return pascalCasedWords.join(" ");
+  return titleCasedWords.join(" ");
+};
+
+export const turncateString = (string, maxLength) => {
+  if (string.length <= maxLength) return string;
+  return `${string.slice(0, maxLength)}...`;
 };
 
 export const setElementProps = (elm, props = {}) => {

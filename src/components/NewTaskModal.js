@@ -14,7 +14,7 @@ import {
 } from "../scripts/todos";
 import { getProjects, listenUpdateProjectsEvent } from "../scripts/projects";
 import { getTodayDate } from "../scripts/dates";
-import { snakeCase, closeAndRemoveModal } from "../scripts/utilities";
+import { kebabCase, closeAndRemoveModal } from "../scripts/utilities";
 import NewProjectModal from "./NewProjectModal";
 
 const NewTaskModal = (todoObj = {}) => {
@@ -72,10 +72,10 @@ const NewTaskModal = (todoObj = {}) => {
   const priorityRadioEls = ["Low", "Mid", "High"].map((inputName) =>
     inputField(inputName, {
       type: "radio",
-      id: `todo-priority-${snakeCase(inputName)}`,
+      id: `todo-priority-${kebabCase(inputName)}`,
       name: "todo-priority",
-      value: snakeCase(inputName),
-      checked: snakeCase(inputName) === priority,
+      value: kebabCase(inputName),
+      checked: kebabCase(inputName) === priority,
       required: true,
     })
   );

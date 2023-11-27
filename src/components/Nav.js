@@ -1,4 +1,4 @@
-import { snakeCase, setElementProps } from "../scripts/utilities";
+import { kebabCase, setElementProps } from "../scripts/utilities";
 import Logo from "./Logo";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import {
@@ -29,7 +29,7 @@ const Nav = () => {
 
   const getNavLinkItem = (
     linkText,
-    props = { id: snakeCase(linkText), class: "nav__link", href: "#" }
+    props = { id: kebabCase(linkText), class: "nav__link", href: "#" }
   ) => {
     const listItemEl = getNavItem();
     const anchorEl = document.createElement("a");
