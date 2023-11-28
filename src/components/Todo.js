@@ -27,7 +27,7 @@ const Todo = (todoObj) => {
   checkTodoEl.classList.add("todo-checkbox");
   todoTitleEl.classList.add("todo-list__item-title");
   if (todoObj.isCompleted) todoTitleEl.classList.add("strikethrough");
-  priorityEl.classList.add("priority-chip");
+  priorityEl.classList.add("todo-list__item-priority");
   todoDueEl.classList.add("todo-list__item-due-date");
   textsWrapperEl.classList.add("todo-list__item-texts-wrapper");
   btnsWrapperEl.classList.add("todo-list__item-btns-wrapper");

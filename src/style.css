@@ -301,6 +301,30 @@ a:active {
   opacity: 0.75;
 }
 
+.todo-list__item-priority {
+  font-size: var(--fs-100);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--clr);
+  transform: translate(-4px, -8px);
+  padding: 0.25em 0.75em;
+  border: solid 1px var(--clr);
+  opacity: 0.7;
+}
+
+.todo-list__item-priority.low {
+  --clr: var(--clr-success);
+}
+
+.todo-list__item-priority.mid {
+  --clr: var(--clr-warning);
+}
+
+.todo-list__item-priority.high {
+  --clr: var(--clr-danger);
+}
+
 .todo-list__item-btns-wrapper {
   display: flex;
   gap: 0.5rem;
@@ -347,17 +371,23 @@ a:active {
 }
 
 .modal-todo-details {
-  width: 100vw;
-  height: 75svh;
-  height: 75vh;
+  display: grid;
+  align-items: start;
+  min-width: 300px;
+  min-height: 350px;
   background-color: var(--clr-primary-600);
   color: var(--clr-primary-200);
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 8px 12px 10px hsla(var(--hsl-clr-primary-700), 0.25);
-  top: calc(var(--nav-height) + 1rem);
+  box-shadow: 10px 15px 20px hsla(var(--hsl-clr-primary-700), 0.25);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+}
+
+.modal-todo-details::backdrop {
+  /* custom props not working. --clr-primary-400 is used here */
+  background-color: hsl(213, 30%, 32%);
 }
 
 .modal-todo-details__due-date {
@@ -367,8 +397,30 @@ a:active {
   box-shadow: 0 5px 5px hsla(var(--hsl-clr-primary-700), 0.25);
 }
 
-.modal-todo-details__texts-wrapper {
+.modal-todo-details__task-wrapper,
+.modal-todo-details__info-wrapper {
   padding: 2em;
+  position: relative;
+}
+
+.modal-todo-details__task-wrapper::before,
+.modal-todo-details__info-wrapper::before {
+  font-family: var(--ff-body);
+  font-size: var(--fs-100);
+  color: var(--clr-accent-400);
+  padding: 0.25em 0.5em;
+  border: 0.5px solid;
+  position: absolute;
+  transform: translate(-1rem, -1rem);
+  opacity: 0.75;
+}
+
+.modal-todo-details__task-wrapper::before {
+  content: "Task";
+}
+
+.modal-todo-details__info-wrapper::before {
+  content: "Info";
 }
 
 .modal-todo-details__title,
@@ -380,19 +432,6 @@ a:active {
 
 .modal-todo-details__title {
   letter-spacing: 0.05em;
-  position: relative;
-}
-
-.modal-todo-details__title::before {
-  content: "Title";
-  font-family: var(--ff-body);
-  font-size: var(--fs-100);
-  color: var(--clr-accent-400);
-  padding: 0.25em 0.5em;
-  border: 0.5px solid;
-  position: absolute;
-  transform: translate(-1rem, -1rem);
-  opacity: 0.75;
 }
 
 .modal-todo-details__description {
@@ -400,21 +439,60 @@ a:active {
   margin-top: 0.5rem;
 }
 
-.modal-todo-details__btns-wrapper {
+.modal-todo-details__info-item {
   display: flex;
-  justify-content: end;
   align-items: center;
+  gap: 0.35rem;
+  font-family: var(--ff-title);
+  letter-spacing: 0.05em;
+  vertical-align: text-top;
+  padding: 0.25em 0;
+}
+
+.modal-todo-details__info-item > span {
+  font-family: var(--ff-body);
+}
+
+.modal-todo-details__info-item.priority > span {
+  text-transform: capitalize;
+  color: var(--clr);
+}
+
+.modal-todo-details__info-item.priority.low > span {
+  --clr: var(--clr-success);
+}
+.modal-todo-details__info-item.priority.mid > span {
+  --clr: var(--clr-warning);
+}
+.modal-todo-details__info-item.priority.high > span {
+  --clr: var(--clr-danger);
+}
+
+.modal-todo-details__btns-wrapper {
+  align-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.25rem;
   width: 100%;
-  padding: 1em;
+  padding: 1em 1.5em;
   background-color: var(--clr-primary-700);
-  position: absolute;
-  bottom: 0;
-  left: 0;
+}
+
+.modal-todo-details__check-item {
+  margin-right: auto;
+}
+
+.modal-todo-details__check-item > label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .todo-checkbox-wrapper {
   --size: 1.5rem;
   display: block;
+  flex-shrink: 0;
   width: var(--size);
   height: var(--size);
   position: relative;
@@ -458,30 +536,6 @@ a:active {
   text-align: center;
   color: var(--clr-primary-200);
   transform: translateY(-0.3rem);
-}
-
-.priority-chip {
-  font-size: var(--fs-100);
-  font-weight: var(--fw-bold);
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--clr);
-  transform: translate(-4px, -8px);
-  padding: 0.25em 0.75em;
-  border: solid 1px var(--clr);
-  opacity: 0.7;
-}
-
-.priority-chip.low {
-  --clr: var(--clr-success);
-}
-
-.priority-chip.mid {
-  --clr: var(--clr-warning);
-}
-
-.priority-chip.high {
-  --clr: var(--clr-danger);
 }
 
 .btn-hamburger {
@@ -549,4 +603,52 @@ a:active {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+
+.btn {
+  padding: 0;
+  background-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+.btn--cancel,
+.btn--edit,
+.btn--danger {
+  font-family: var(--ff-title);
+  font-size: var(--fs-200);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  color: var(--clr);
+  padding: 0.5em 1em;
+  border: 1px solid var(--clr);
+  border-radius: 5px;
+}
+
+.btn--cancel:hover,
+.btn--cancel:focus,
+.btn--edit:hover,
+.btn--edit:focus,
+.btn--danger:hover,
+.btn--danger:focus {
+  cursor: pointer;
+  color: var(--clr-primary-700);
+  background-color: var(--clr);
+}
+
+.btn--cancel {
+  --clr: var(--clr-primary-300);
+  --hover-clr: var(--clr-primary-700);
+}
+
+.btn--edit {
+  --clr: var(--clr-accent-400);
+  --hover-clr: var(--clr-primary-700);
+}
+
+.btn--danger {
+  --clr: var(--clr-danger);
 }
