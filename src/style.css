@@ -371,7 +371,6 @@ a:active {
 }
 
 .modal-todo-details {
-  display: grid;
   align-items: start;
   min-width: 300px;
   min-height: 350px;
@@ -427,7 +426,6 @@ a:active {
 .modal-todo-details__description {
   /* prevent extra-long long words from overflowing */
   overflow-wrap: break-word;
-  hyphens: manual;
 }
 
 .modal-todo-details__title {
@@ -437,6 +435,10 @@ a:active {
 .modal-todo-details__description {
   text-indent: 1em;
   margin-top: 0.5rem;
+}
+
+.modal-todo-details__info-wrapper {
+  margin-bottom: 3rem;
 }
 
 .modal-todo-details__info-item {
@@ -469,14 +471,17 @@ a:active {
 }
 
 .modal-todo-details__btns-wrapper {
-  align-self: end;
   display: flex;
   align-items: center;
   justify-content: end;
   gap: 0.25rem;
   width: 100%;
-  padding: 1em 1.5em;
+  padding: 1.25em 1.5em;
   background-color: var(--clr-primary-700);
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
 }
 
 .modal-todo-details__check-item {
