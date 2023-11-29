@@ -18,6 +18,7 @@ export const getFieldsetEl = (legendText, ...elms) => {
   const legendEl = document.createElement("legend");
 
   fieldsetEl.classList.add("fieldset");
+  legendEl.classList.add("fieldset__legend");
   legendEl.textContent = legendText;
 
   fieldsetEl.append(legendEl, ...elms);

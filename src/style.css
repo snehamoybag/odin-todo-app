@@ -370,8 +370,8 @@ a:active {
   --clr: var(--clr-danger);
 }
 
-.modal-todo-details {
-  align-items: start;
+.modal-todo-details,
+.modal-new-task {
   min-width: 300px;
   min-height: 350px;
   background-color: var(--clr-primary-600);
@@ -384,7 +384,8 @@ a:active {
   transform: translate(-50%, -50%);
 }
 
-.modal-todo-details::backdrop {
+.modal-todo-details::backdrop,
+.modal-new-task::backdrop {
   /* custom props not working. --clr-primary-400 is used here */
   background-color: hsl(213, 30%, 32%);
 }
@@ -484,6 +485,10 @@ a:active {
   z-index: 1;
 }
 
+.modal-todo-details__btns-wrapper .btn {
+  font-size: var(--fs-200);
+}
+
 .modal-todo-details__check-item {
   margin-right: auto;
 }
@@ -492,6 +497,90 @@ a:active {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+}
+
+.modal-new-task__form > .title,
+.modal-new-task__btns-wrapper {
+  background-color: var(--clr-primary-700);
+  padding: 1em 1.5em;
+}
+
+.modal-new-task__form .field-wrapper {
+  display: grid; /* make input field stretch full width */
+  row-gap: 0.5rem;
+}
+
+.modal-new-task__form .fieldset {
+  display: grid;
+  row-gap: 1rem;
+  padding: 2em 1em;
+  border: 0.5px solid var(--clr-primary-300);
+  border-radius: 10px;
+}
+
+.modal-new-task__form .fieldset__legend {
+  background-color: var(--clr-primary-700);
+  padding: 0.5em 1em;
+}
+
+.modal-new-task__form input,
+.modal-new-task__form textarea,
+.modal-new-task__form select {
+  background-color: transparent;
+  color: var(--clr-primary-300);
+  padding: 1em 0.5em;
+  border: 1px solid;
+}
+
+.modal-new-task__form textarea {
+  min-height: 100px;
+}
+
+.modal-new-task__form input:focus,
+.modal-new-task__form textarea:focus,
+.modal-new-task__for select:focus {
+  color: var(--clr-accent-400);
+  outline: none;
+}
+
+.modal-new-task__form input[type="radio"] {
+  --size: 1.25rem;
+  appearance: none;
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  padding: 0;
+  border: 2px solid;
+  border-radius: 50%;
+  transition: border 100ms ease;
+}
+
+.modal-new-task__form input[type="radio"]:checked {
+  border: calc(var(--size) * 0.35) solid var(--clr-accent-400); /* 35% of the radio button  */
+}
+
+.modal-new-task__fields-container {
+  display: grid;
+  row-gap: 1.5rem;
+  padding: 2em;
+}
+
+.modal-new-task__priority .field-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-new-task__project option {
+  background-color: var(--clr-primary-400);
+}
+
+.modal-new-task__btns-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .todo-checkbox-wrapper {
@@ -622,9 +711,9 @@ a:active {
 
 .btn--cancel,
 .btn--edit,
-.btn--danger {
+.btn--danger,
+.btn--submit {
   font-family: var(--ff-title);
-  font-size: var(--fs-200);
   font-weight: var(--fw-bold);
   text-transform: uppercase;
   color: var(--clr);
@@ -638,7 +727,9 @@ a:active {
 .btn--edit:hover,
 .btn--edit:focus,
 .btn--danger:hover,
-.btn--danger:focus {
+.btn--danger:focus,
+.btn--submit:hover,
+.btn--submit:focus {
   cursor: pointer;
   color: var(--clr-primary-700);
   background-color: var(--clr);
@@ -656,4 +747,8 @@ a:active {
 
 .btn--danger {
   --clr: var(--clr-danger);
+}
+
+.btn--submit {
+  --clr: var(--clr-success);
 }

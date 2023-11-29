@@ -33,6 +33,7 @@ const NewTaskModal = (todoObj = {}) => {
   const taskModalEl = document.createElement("dialog");
   const formEl = document.createElement("form");
   const formHeaderEl = document.createElement("h2");
+  const formFieldContainerEl = document.createElement("div");
 
   const titleField = inputField("Title", {
     type: "text",
@@ -54,6 +55,7 @@ const NewTaskModal = (todoObj = {}) => {
     name: "todo-due-date",
     min: getTodayDate(),
     value: dueDate || getTodayDate(),
+    pattern: /\d{4}-\d{2}-\d{2}/.source, // to make sure, user inputs in correct format
     required: true,
   });
   const dueTimeField = inputField("Time", {
@@ -104,11 +106,14 @@ const NewTaskModal = (todoObj = {}) => {
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
 
-  taskModalEl.classList.add("new-task-modal");
-  formEl.classList.add("new-task-modal__form");
+  taskModalEl.classList.add("modal-new-task");
+  formEl.classList.add("modal-new-task__form");
   formHeaderEl.classList.add("title", "title--secondary");
-  btnsWrapperEl.classList.add("new-task-modal__btn-wrapper");
-  newprojectBtnEl.classList.add("btn", "btn--new-project");
+  formFieldContainerEl.classList.add("modal-new-task__fields-container");
+  priorityFieldsGroup.classList.add("modal-new-task__priority");
+  projectSelectFieldsGroup.classList.add("modal-new-task__project");
+  btnsWrapperEl.classList.add("modal-new-task__btns-wrapper");
+  newprojectBtnEl.classList.add("btn", "btn--submit");
   submitBtnEl.classList.add("btn", "btn--submit");
   cancelBtnEl.classList.add("btn", "btn--cancel");
 
@@ -196,15 +201,14 @@ const NewTaskModal = (todoObj = {}) => {
   });
 
   btnsWrapperEl.append(submitBtnEl, cancelBtnEl);
-  formEl.append(
-    formHeaderEl,
+  formFieldContainerEl.append(
     titleField,
     descriptionField,
     dueDateAndTimeFieldsGroup,
     priorityFieldsGroup,
-    projectSelectFieldsGroup,
-    btnsWrapperEl
+    projectSelectFieldsGroup
   );
+  formEl.append(formHeaderEl, formFieldContainerEl, btnsWrapperEl);
   taskModalEl.append(formEl);
 
   return taskModalEl;
