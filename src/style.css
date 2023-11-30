@@ -133,29 +133,24 @@ dialog {
   background-color: var(--clr-primary-700);
   height: var(--nav-height);
   padding: 0 1.5em;
-  box-shadow: 0 5px 10px hsla(var(--hsl-clr-primary-700), 0.25);
 }
 
-.nav__list {
+.nav__sidebar {
+  min-height: 100vh; /* fallback to vh if svh is not suppoted by the browser */
+  min-height: 100svh;
+  font-size: var(--fs-600);
+  background-color: var(--clr-primary-700);
+  box-shadow: 5px 0 10px hsla(var(--hsl-clr-primary-700), 0.25);
   position: absolute;
   top: var(--nav-height);
   left: 0;
-  width: 70%;
-  min-height: 100svh;
-  min-height: 100vh; /* fallback to vh if svh is not suppoted by the browser */
-  font-size: var(--fs-600);
-  background-color: var(--clr-primary-700);
-  list-style: none;
   overflow: auto;
-  box-shadow: 5px 0 10px hsla(var(--hsl-clr-primary-700), 0.25);
 }
 
-.nav__list[data-state="open"] {
-  display: block;
-}
-
-.nav__list[data-state="close"] {
-  display: none;
+.nav__list {
+  list-style: none;
+  padding: 0;
+  overflow: auto;
 }
 
 .nav__list-item {
@@ -380,7 +375,7 @@ dialog {
 
 .modal-todo-details,
 .modal-new-task {
-  width: min(90vw, 720px);
+  width: min(90vw, 500px);
   min-height: 350px;
   top: 50%;
   left: 50%;
@@ -774,4 +769,65 @@ dialog {
 
 .btn--submit {
   --clr: var(--clr-success);
+}
+
+/* Only for mobile (719.5px)*/
+@media only screen and (max-width: 44.96875em) {
+  .nav__sidebar {
+    width: 70%;
+    box-shadow: 0 5px 10px hsla(var(--hsl-clr-primary-700), 0.25);
+  }
+
+  .nav__sidebar[data-state="open"] {
+    display: block;
+  }
+
+  .nav__sidebar[data-state="close"] {
+    display: none;
+  }
+}
+
+/* Tablets */
+@media only screen and (min-width: 45em) {
+  :root {
+    --sidebar-width: 300px;
+  }
+
+  .nav {
+    padding: 0 2em;
+  }
+
+  .nav__sidebar {
+    width: var(--sidebar-width);
+  }
+
+  .btn-hamburger {
+    display: none;
+  }
+
+  main {
+    width: calc(100% - var(--sidebar-width));
+    margin-left: auto;
+  }
+
+  .main-container {
+    width: min(100%, 800px);
+    margin: 0 auto;
+  }
+
+  .btn-new-task {
+    --size: 50px;
+  }
+}
+
+/* Dektops (1024px)*/
+
+@media only screen and (min-width: 64em) {
+  :root {
+    --fs-700: 2rem;
+    --fs-600: 1.25rem;
+    --fs-400: 1rem;
+    --fs-200: 0.75rem;
+    --fs-100: 0.625rem;
+  }
 }

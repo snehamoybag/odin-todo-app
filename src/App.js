@@ -9,6 +9,7 @@ const App = () => {
   const appContainerEl = document.createElement("div");
   const headerEl = document.createElement("header");
   const mainEl = document.createElement("main");
+  const mainContentContainerEl = document.createElement("div");
   const newTaskBtnEl = document.createElement("button");
   const srOnlyEl = document.createElement("span");
   const todosListContainerEl = TodoListContainer();
@@ -19,6 +20,7 @@ const App = () => {
     title: "Add a new task",
     class: "btn-new-task",
   });
+  mainContentContainerEl.classList.add("main-container");
   srOnlyEl.classList.add("sr-only");
 
   srOnlyEl.textContent = "Add A New Task";
@@ -32,7 +34,12 @@ const App = () => {
   headerEl.append(Nav());
   todosListContainerEl.append(todosListAll());
   newTaskBtnEl.append(srOnlyEl);
-  mainEl.append(newTaskBtnEl, SortTodos(), todosListContainerEl);
+  mainContentContainerEl.append(
+    newTaskBtnEl,
+    SortTodos(),
+    todosListContainerEl
+  );
+  mainEl.append(mainContentContainerEl);
   appContainerEl.append(headerEl, mainEl);
 
   return appContainerEl;

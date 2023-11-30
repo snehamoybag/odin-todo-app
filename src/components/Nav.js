@@ -43,13 +43,14 @@ const Nav = () => {
   };
 
   const navEl = document.createElement("nav");
+  const sidebarEl = document.createElement("div");
+  const sidebarElId = "nav-sidebar";
   const navListEl = document.createElement("ul");
-  const navListElId = "todo-filter-list";
   const allLinkEl = getNavLinkItem("All");
   const todayLinkEl = getNavLinkItem("Today");
   const thisWeekLinkEl = getNavLinkItem("This Week");
   const completedLinkEl = getNavLinkItem("Completed");
-  const hamburgerBtnEl = ButtonHambuger("Menu", navListElId);
+  const hamburgerBtnEl = ButtonHambuger("Menu", sidebarElId);
   const projectsListItemEl = getNavItem();
 
   setElementProps(navEl, {
@@ -57,11 +58,15 @@ const Nav = () => {
     "aria-label": "Header",
   });
 
+  setElementProps(sidebarEl, {
+    id: sidebarElId,
+    class: "nav__sidebar",
+    "data-state": "close", // used in css to show and hide the list. closed by default
+  });
+
   setElementProps(navListEl, {
-    id: navListElId,
     role: "list",
     class: "nav__list",
-    "data-state": "close", // used in css to show and hide the list. closed by default
   });
 
   allLinkEl.addEventListener("click", (e) =>
@@ -88,7 +93,8 @@ const Nav = () => {
     projectsListItemEl,
     completedLinkEl
   );
-  navEl.append(hamburgerBtnEl, navListEl, Logo());
+  sidebarEl.append(navListEl);
+  navEl.append(hamburgerBtnEl, sidebarEl, Logo());
 
   return navEl;
 };
