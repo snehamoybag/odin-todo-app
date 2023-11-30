@@ -23,9 +23,10 @@ const NewProjectModal = (inProject = "") => {
   const submitBtnEl = document.createElement("button");
   const cancelBtnEl = document.createElement("button");
 
-  modalEl.classList.add("new-project-modal");
+  modalEl.classList.add("modal-new-project");
+  formEl.classList.add("modal-new-project__form");
   titleEl.classList.add("title", "title--secondary");
-  btnsWrapperEl.classList.add("new-project-modal__btn-wrapper");
+  btnsWrapperEl.classList.add("modal-new-project__btns-wrapper");
   submitBtnEl.classList.add("btn", "btn--submit");
   cancelBtnEl.classList.add("btn", "btn--cancel");
 

@@ -95,6 +95,14 @@ a:active {
   text-decoration: none;
 }
 
+dialog {
+  background-color: var(--clr-primary-600);
+  color: var(--clr-primary-200);
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 10px 15px 20px hsla(var(--hsl-clr-primary-700), 0.25);
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -265,7 +273,7 @@ a:active {
   margin-bottom: 0;
 }
 
-/* select all directe children except for the first one */
+/* select all direct children except for the first one */
 .todo-list__item-body > * + * {
   margin-top: 1.25rem;
 }
@@ -372,13 +380,8 @@ a:active {
 
 .modal-todo-details,
 .modal-new-task {
-  min-width: 300px;
+  width: min(90vw, 720px);
   min-height: 350px;
-  background-color: var(--clr-primary-600);
-  color: var(--clr-primary-200);
-  border: none;
-  border-radius: 0.5rem;
-  box-shadow: 10px 15px 20px hsla(var(--hsl-clr-primary-700), 0.25);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -500,14 +503,11 @@ a:active {
 }
 
 .modal-new-task__form > .title,
-.modal-new-task__btns-wrapper {
+.modal-new-task__btns-wrapper,
+.modal-new-project__form > .title,
+.modal-new-project__btns-wrapper {
   background-color: var(--clr-primary-700);
   padding: 1em 1.5em;
-}
-
-.modal-new-task__form .field-wrapper {
-  display: grid; /* make input field stretch full width */
-  row-gap: 0.5rem;
 }
 
 .modal-new-task__form .fieldset {
@@ -525,7 +525,8 @@ a:active {
 
 .modal-new-task__form input,
 .modal-new-task__form textarea,
-.modal-new-task__form select {
+.modal-new-task__form select,
+.modal-new-project__form input {
   background-color: transparent;
   color: var(--clr-primary-300);
   padding: 1em 0.5em;
@@ -538,7 +539,8 @@ a:active {
 
 .modal-new-task__form input:focus,
 .modal-new-task__form textarea:focus,
-.modal-new-task__for select:focus {
+.modal-new-task__for select:focus,
+.modal-new-project__form input:focus {
   color: var(--clr-accent-400);
   outline: none;
 }
@@ -577,10 +579,31 @@ a:active {
   background-color: var(--clr-primary-400);
 }
 
-.modal-new-task__btns-wrapper {
+.modal-new-task__btns-wrapper,
+.modal-new-project__btns-wrapper {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.modal-new-project {
+  width: min(70%, 400px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-new-project::backdrop {
+  backdrop-filter: blur(2px);
+}
+
+.modal-new-project__form > .field-wrapper {
+  padding: 2em;
+}
+
+.field-wrapper {
+  display: grid; /* make input field stretch full width */
+  row-gap: 0.5rem;
 }
 
 .todo-checkbox-wrapper {
