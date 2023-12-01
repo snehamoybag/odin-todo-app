@@ -103,6 +103,27 @@ dialog {
   box-shadow: 10px 15px 20px hsla(var(--hsl-clr-primary-700), 0.25);
 }
 
+/* add custom style for scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--hsl-clr-primary-300), 0.5);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-accent-400);
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -136,8 +157,7 @@ dialog {
 }
 
 .nav__sidebar {
-  min-height: 100vh; /* fallback to vh if svh is not suppoted by the browser */
-  min-height: 100svh;
+  height: calc(100vh - var(--nav-height));
   font-size: var(--fs-600);
   background-color: var(--clr-primary-700);
   box-shadow: 5px 0 10px hsla(var(--hsl-clr-primary-700), 0.25);
@@ -150,7 +170,6 @@ dialog {
 .nav__list {
   list-style: none;
   padding: 0;
-  overflow: auto;
 }
 
 .nav__list-item {
