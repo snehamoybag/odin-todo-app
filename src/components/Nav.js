@@ -35,6 +35,7 @@ const Nav = () => {
     const anchorEl = document.createElement("a");
 
     setElementProps(anchorEl, props);
+    listItemEl.dataset.type = "tab";
     anchorEl.textContent = linkText;
 
     listItemEl.append(anchorEl);

@@ -1,3 +1,4 @@
+import { setElementProps } from "../scripts/utilities";
 import {
   inBuiltProject,
   getProjects,
@@ -7,26 +8,45 @@ import {
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
+import SrOnly from "./SrOnly";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todoListInProject } from "./TodosList";
 
 const ProjectList = () => {
   const createProjectListItemEl = (projectName) => {
     const listItemEl = document.createElement("li");
+    const textWrapperEl = document.createElement("div");
     const linkEl = document.createElement("a");
     const numOfTodosInProjectEl = document.createElement("span");
     const numOfTodosInProject = getTodosByProjectName(projectName).length;
+    const btnsWrapperEl = document.createElement("div");
+    const addBtnEl = document.createElement("button");
+    const editBtnEl = document.createElement("button");
+    const deleteBtnEl = document.createElement("button");
 
     listItemEl.classList.add("projects-list__item");
-    numOfTodosInProjectEl.classList.add("bubble-number");
+    numOfTodosInProjectEl.classList.add("num-bubble");
+    textWrapperEl.classList.add("projects-list__item-texts-wrapper");
+    btnsWrapperEl.classList.add("projects-list__item-btns-wrapper");
 
+    setElementProps(addBtnEl, {
+      title: "add to project",
+      class: ["btn", "btn--icon_add"],
+    });
+    setElementProps(editBtnEl, {
+      title: "edit project",
+      class: ["btn", "btn--icon_edit"],
+    });
+    setElementProps(deleteBtnEl, {
+      title: "delete project",
+      class: ["btn", "btn--icon_delete"],
+    });
+
+    listItemEl.dataset.type = "tab";
     linkEl.href = "#";
     linkEl.textContent = projectName;
     numOfTodosInProjectEl.title = "Number of Tasks in this Project";
     numOfTodosInProjectEl.textContent = numOfTodosInProject;
-
-    listItemEl.append(linkEl);
-    if (numOfTodosInProject > 0) listItemEl.append(numOfTodosInProjectEl);
 
     listItemEl.addEventListener("click", (e) => {
       const todoListDOMContainer = getDOMTodoListContainer();
@@ -35,6 +55,16 @@ const ProjectList = () => {
       todoListDOMContainer.innerHTML = ""; // remove prev redered todo list
       todoListDOMContainer.append(todoListInProject(projectName));
     });
+
+    textWrapperEl.append(linkEl);
+    if (numOfTodosInProject > 0) textWrapperEl.append(numOfTodosInProjectEl);
+
+    addBtnEl.append(SrOnly("add to project"));
+    editBtnEl.append(SrOnly("edit project"));
+    deleteBtnEl.append(SrOnly("delete project"));
+    btnsWrapperEl.append(addBtnEl, editBtnEl, deleteBtnEl);
+
+    listItemEl.append(textWrapperEl, btnsWrapperEl);
 
     return listItemEl;
   };

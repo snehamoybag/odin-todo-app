@@ -1,8 +1,9 @@
 import { setElementProps } from "../scripts/utilities";
+import SrOnly from "./SrOnly";
 
 const ButtonHambuger = (btnText, controlledElId) => {
   const buttonEl = document.createElement("button");
-  const srOnlyEl = document.createElement("span");
+  const srOnlyEl = SrOnly(btnText);
   const buttonLinesEl = document.createElement("span");
 
   setElementProps(buttonEl, {
@@ -13,10 +14,7 @@ const ButtonHambuger = (btnText, controlledElId) => {
     title: "Toggle navigation menu",
   });
 
-  srOnlyEl.classList.add("sr-only");
   buttonLinesEl.classList.add("btn-hamburger__lines");
-
-  srOnlyEl.textContent = btnText;
 
   buttonEl.addEventListener("click", () => {
     const controlledDOMEl = document.querySelector(`#${controlledElId}`);

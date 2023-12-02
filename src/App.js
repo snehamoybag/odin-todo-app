@@ -4,6 +4,7 @@ import NewTaskModal from "./components/NewTaskModal";
 import SortTodos from "./components/SortTodos";
 import { TodoListContainer } from "./components/TodoListContainer";
 import { todosListAll } from "./components/TodosList";
+import SrOnly from "./components/SrOnly";
 
 const App = () => {
   const appContainerEl = document.createElement("div");
@@ -11,7 +12,7 @@ const App = () => {
   const mainEl = document.createElement("main");
   const mainContentContainerEl = document.createElement("div");
   const newTaskBtnEl = document.createElement("button");
-  const srOnlyEl = document.createElement("span");
+  const srOnlyEl = SrOnly("add a new task");
   const todosListContainerEl = TodoListContainer();
 
   headerEl.classList.add("header");
@@ -21,9 +22,6 @@ const App = () => {
     class: "btn-new-task",
   });
   mainContentContainerEl.classList.add("main-container");
-  srOnlyEl.classList.add("sr-only");
-
-  srOnlyEl.textContent = "Add A New Task";
 
   newTaskBtnEl.addEventListener("click", () => {
     const newTaskModalEl = NewTaskModal();

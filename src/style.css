@@ -176,8 +176,34 @@ dialog {
   padding: 0.5em 1.25em;
 }
 
-.nav__list-item:hover {
+.nav__list-item:hover,
+.projects-list__item:hover,
+.tab-active {
   background-color: var(--clr-primary-600);
+}
+
+/* remove hover style from projects-list */
+.nav__list-item:nth-child(4):hover {
+  background-color: transparent;
+}
+
+.projects-list {
+  list-style: none;
+}
+
+.projects-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25em 0.5em;
+}
+
+.projects-list__item-texts-wrapper,
+.projects-list__item-btns-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .btn-new-task {
@@ -788,6 +814,59 @@ dialog {
 
 .btn--submit {
   --clr: var(--clr-success);
+}
+
+.btn--icon_add,
+.btn--icon_edit,
+.btn--icon_delete {
+  --size: 0.85em;
+  width: var(--size);
+  height: var(--size);
+  background-image: var(--bg-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: none;
+  opacity: 0.5;
+}
+
+.btn--icon_add:hover,
+.btn--icon_add:focus,
+.btn--icon_edit:hover,
+.btn--icon_edit:focus,
+.btn--icon_delete:hover,
+.btn--icon_deletefoc:focus {
+  opacity: 1;
+}
+
+.btn--icon_add {
+  --bg-url: url(./assets/icon-plus-solid-green.svg);
+  border: 1px solid var(--clr-success);
+  border-radius: 50%;
+}
+
+.btn--icon_edit {
+  --bg-url: url(./assets/icon-pen-to-square-solid.svg);
+}
+
+.btn--icon_delete {
+  --bg-url: url(./assets/icon-trash-solid.svg);
+}
+
+.num-bubble {
+  --size: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size);
+  height: var(--size);
+  font-size: var(--fs-200);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  background-color: var(--clr-primary-300);
+  color: var(--clr-primary-700);
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px hsla(var(--hsl-clr-primary-700), 0.25);
 }
 
 /* Only for mobile (719.5px)*/

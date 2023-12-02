@@ -28,13 +28,22 @@ let projects = [
 
 export const getProjects = () => projects;
 
-const setProjects = () => {
+const storeAndSyncProjects = () => {
   projects = storeAndSyncData(projects, projectsKey);
 };
 
 export const addAProject = (projectName) => {
   projects.unshift(projectName); // add it at the beginning
-  setProjects();
+  storeAndSyncProjects();
+};
+
+export const deleteProject = (projectName) => {
+  const indexOfDeleteProject = projects.indexOf(projectName);
+
+  if (indexOfDeleteProject >= 0) {
+    projects.splice(indexOfDeleteProject, 1);
+    storeAndSyncProjects();
+  }
 };
 
 const updateProjectsEventListenerEl = document.body;

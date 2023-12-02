@@ -92,6 +92,11 @@ export const deleteTodo = (deleteTodoObj) => {
   }
 };
 
+export const deleteTodosInProject = (projectName) => {
+  todos.filter((todoObj) => todoObj.inProject !== projectName);
+  syncTodos();
+};
+
 export const updateTodoCompletionStatus = (todoObj) => {
   const updatedTodoObj = todoObj; // to ignore es-lint function parameter modification error
   const indexOfUpdatedTodoObj = todos.indexOf(todoObj);
