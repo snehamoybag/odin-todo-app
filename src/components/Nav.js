@@ -35,7 +35,7 @@ const Nav = () => {
     const anchorEl = document.createElement("a");
 
     setElementProps(anchorEl, props);
-    listItemEl.dataset.type = "tab";
+
     anchorEl.textContent = linkText;
 
     listItemEl.append(anchorEl);
@@ -52,7 +52,8 @@ const Nav = () => {
   const thisWeekLinkEl = getNavLinkItem("This Week");
   const completedLinkEl = getNavLinkItem("Completed");
   const hamburgerBtnEl = ButtonHambuger("Menu", sidebarElId);
-  const projectsListItemEl = getNavItem();
+  // const projectsListEl = ProjectList();
+  const projectsListWrapperEl = getNavItem();
 
   setElementProps(navEl, {
     class: "nav",
@@ -86,12 +87,26 @@ const Nav = () => {
     renderNewTodoList(e, todoListCompleted())
   );
 
-  projectsListItemEl.append(ProjectList());
+  const activateTabStyle = (clickedTabEl) => {
+    const className = "tab-active";
+    const prevActiveTab = sidebarEl.querySelector(`.${className}`);
+    // if prevActiveTab available, remove the class from it and add it to the clicked tab
+    if (prevActiveTab) {
+      prevActiveTab.classList.remove(className);
+    }
+    clickedTabEl.classList.add(className);
+  };
+
+  [allLinkEl, todayLinkEl, thisWeekLinkEl, completedLinkEl].forEach((elem) =>
+    elem.addEventListener("click", () => activateTabStyle(elem))
+  );
+
+  projectsListWrapperEl.append(ProjectList(activateTabStyle));
   navListEl.append(
     allLinkEl,
     todayLinkEl,
     thisWeekLinkEl,
-    projectsListItemEl,
+    projectsListWrapperEl,
     completedLinkEl
   );
   sidebarEl.append(navListEl);

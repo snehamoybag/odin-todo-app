@@ -12,7 +12,7 @@ import SrOnly from "./SrOnly";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todoListInProject } from "./TodosList";
 
-const ProjectList = () => {
+const ProjectList = (activateTabStyle) => {
   const createProjectListItemEl = (projectName) => {
     const listItemEl = document.createElement("li");
     const textWrapperEl = document.createElement("div");
@@ -41,8 +41,6 @@ const ProjectList = () => {
       title: "delete project",
       class: ["btn", "btn--icon_delete"],
     });
-
-    listItemEl.dataset.type = "tab";
     linkEl.href = "#";
     linkEl.textContent = projectName;
     numOfTodosInProjectEl.title = "Number of Tasks in this Project";
@@ -52,8 +50,9 @@ const ProjectList = () => {
       const todoListDOMContainer = getDOMTodoListContainer();
 
       e.preventDefault();
+      activateTabStyle(listItemEl);
       todoListDOMContainer.innerHTML = ""; // remove prev redered todo list
-      todoListDOMContainer.append(todoListInProject(projectName));
+      todoListDOMContainer.append(todoListInProject(projectName)); // render updated todo list
     });
 
     textWrapperEl.append(linkEl);
