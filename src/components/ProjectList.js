@@ -3,6 +3,8 @@ import {
   inBuiltProject,
   getProjects,
   listenUpdateProjectsEvent,
+  deleteProject,
+  dispatchUpdateProjectsEvent,
 } from "../scripts/projects";
 import {
   createTodoObj,
@@ -13,6 +15,7 @@ import SrOnly from "./SrOnly";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todoListInProject } from "./TodosList";
 import NewTaskModal from "./NewTaskModal";
+import NewProjectModal from "./NewProjectModal";
 
 const ProjectList = (activateTabStyle) => {
   const createProjectListItemEl = (projectName) => {
@@ -60,8 +63,13 @@ const ProjectList = (activateTabStyle) => {
     textWrapperEl.append(linkEl);
     if (numOfTodosInProject > 0) textWrapperEl.append(numOfTodosInProjectEl);
 
-    addBtnEl.addEventListener("click", () => {
+    const appendAndShowModal = (modalEl) => {
       const mainEl = document.querySelector("main");
+      mainEl.append(modalEl);
+      modalEl.showModal();
+    };
+
+    addBtnEl.addEventListener("click", () => {
       const todoObj = createTodoObj(
         "", // title
         "", // description
@@ -72,8 +80,17 @@ const ProjectList = (activateTabStyle) => {
         false // isCompleted
       );
       const taskModalEl = NewTaskModal(todoObj);
-      mainEl.append(taskModalEl);
-      taskModalEl.showModal();
+      appendAndShowModal(taskModalEl);
+    });
+
+    editBtnEl.addEventListener("click", () => {
+      const projectModalEl = NewProjectModal(projectName);
+      appendAndShowModal(projectModalEl);
+    });
+
+    deleteBtnEl.addEventListener("click", () => {
+      deleteProject(projectName);
+      dispatchUpdateProjectsEvent();
     });
 
     addBtnEl.append(SrOnly("add to project"));

@@ -32,9 +32,18 @@ const storeAndSyncProjects = () => {
   projects = storeAndSyncData(projects, projectsKey);
 };
 
-export const addAProject = (projectName) => {
+export const addProject = (projectName) => {
   projects.unshift(projectName); // add it at the beginning
   storeAndSyncProjects();
+};
+
+export const editProject = (prevName, newName) => {
+  const indexOfProject = projects.indexOf(prevName);
+
+  if (indexOfProject >= 0) {
+    projects.splice(indexOfProject, 1, newName);
+    storeAndSyncProjects();
+  }
 };
 
 export const deleteProject = (projectName) => {

@@ -1,6 +1,7 @@
 import { inputField } from "./FormFields";
 import {
-  addAProject,
+  addProject,
+  editProject,
   dispatchUpdateProjectsEvent,
   getProjects,
 } from "../scripts/projects";
@@ -56,9 +57,14 @@ const NewProjectModal = (inProject = "") => {
   // only submited when input field is valid
   formEl.addEventListener("submit", (e) => {
     const userInput = projectInputDOMEl.value;
-
     e.preventDefault(); // to turn off 'form not connected warning'
-    addAProject(userInput);
+
+    if (inProject) {
+      editProject(inProject, userInput);
+    } else {
+      addProject(userInput);
+    }
+
     dispatchUpdateProjectsEvent();
     closeAndRemoveModal(modalEl);
   });
