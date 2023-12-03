@@ -5,12 +5,14 @@ import {
   listenUpdateProjectsEvent,
 } from "../scripts/projects";
 import {
+  createTodoObj,
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
 import SrOnly from "./SrOnly";
 import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todoListInProject } from "./TodosList";
+import NewTaskModal from "./NewTaskModal";
 
 const ProjectList = (activateTabStyle) => {
   const createProjectListItemEl = (projectName) => {
@@ -57,6 +59,22 @@ const ProjectList = (activateTabStyle) => {
 
     textWrapperEl.append(linkEl);
     if (numOfTodosInProject > 0) textWrapperEl.append(numOfTodosInProjectEl);
+
+    addBtnEl.addEventListener("click", () => {
+      const mainEl = document.querySelector("main");
+      const todoObj = createTodoObj(
+        "", // title
+        "", // description
+        "", // dueDate
+        "", // duetime
+        "", // priority
+        projectName, // inProject
+        false // isCompleted
+      );
+      const taskModalEl = NewTaskModal(todoObj);
+      mainEl.append(taskModalEl);
+      taskModalEl.showModal();
+    });
 
     addBtnEl.append(SrOnly("add to project"));
     editBtnEl.append(SrOnly("edit project"));
