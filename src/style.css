@@ -172,7 +172,8 @@ dialog {
   padding: 0;
 }
 
-.nav__list-item {
+.nav__list-item,
+.projects-list__title {
   padding: 0.5em 1.25em;
 }
 
@@ -182,7 +183,12 @@ dialog {
   background-color: var(--clr-primary-600);
 }
 
-/* remove hover style from projects-list */
+/* remove list item styles from projects-list */
+.nav__list-item:nth-child(4) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .nav__list-item:nth-child(4):hover {
   background-color: transparent;
 }
@@ -191,12 +197,51 @@ dialog {
   list-style: none;
 }
 
+.projects-list__title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.projects-list__title {
+  font-family: var(--ff-body);
+  font-size: var(--fs-600);
+}
+
+.projects-list__add-btn {
+  --size: 1.5em;
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--clr-primary-200);
+  background-image: url(./assets/icon-plus-solid.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75%;
+  border: 2px solid var(--clr-primary-700);
+  border-radius: 50%;
+  box-shadow: 5px 5px 5px hsla(var(--hsl-clr-primary-700), 0.25);
+  opacity: 0.75;
+  transition: opacity 200ms ease;
+}
+
+.projects-list__add-btn:hover,
+.projects-list__add-btn:focus {
+  cursor: pointer;
+  background-color: var(--clr-accent-400);
+  opacity: 1;
+}
+
+.projects-list__add-btn:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
 .projects-list__item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25em 0.5em;
+  padding: 0.25em 0;
 }
 
 .projects-list__item-texts-wrapper,
@@ -204,6 +249,18 @@ dialog {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.projects-list__item-texts-wrapper {
+  padding-left: 1.5em;
+}
+.projects-list__item-btns-wrapper {
+  padding-right: 0.5em;
+}
+
+.projects-list__item-texts-wrapper .num-bubble {
+  position: relative;
+  transform: translateY(-5px);
 }
 
 .btn-new-task {
@@ -835,7 +892,8 @@ dialog {
 .btn--icon_edit:hover,
 .btn--icon_edit:focus,
 .btn--icon_delete:hover,
-.btn--icon_deletefoc:focus {
+.btn--icon_delete:focus {
+  cursor: pointer;
   opacity: 1;
 }
 

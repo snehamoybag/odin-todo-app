@@ -14,16 +14,6 @@ let projects = [
   "eight",
   "nine",
   "ten",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
 ];
 
 export const getProjects = () => projects;

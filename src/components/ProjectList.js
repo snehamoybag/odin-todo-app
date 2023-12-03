@@ -18,6 +18,12 @@ import NewTaskModal from "./NewTaskModal";
 import NewProjectModal from "./NewProjectModal";
 
 const ProjectList = (activateTabStyle) => {
+  const appendAndShowModal = (modalEl) => {
+    const mainEl = document.querySelector("main");
+    mainEl.append(modalEl);
+    modalEl.showModal();
+  };
+
   const createProjectListItemEl = (projectName) => {
     const listItemEl = document.createElement("li");
     const textWrapperEl = document.createElement("div");
@@ -35,7 +41,7 @@ const ProjectList = (activateTabStyle) => {
     btnsWrapperEl.classList.add("projects-list__item-btns-wrapper");
 
     setElementProps(addBtnEl, {
-      title: "add to project",
+      title: "add a new task to this project",
       class: ["btn", "btn--icon_add"],
     });
     setElementProps(editBtnEl, {
@@ -63,13 +69,9 @@ const ProjectList = (activateTabStyle) => {
     textWrapperEl.append(linkEl);
     if (numOfTodosInProject > 0) textWrapperEl.append(numOfTodosInProjectEl);
 
-    const appendAndShowModal = (modalEl) => {
-      const mainEl = document.querySelector("main");
-      mainEl.append(modalEl);
-      modalEl.showModal();
-    };
+    addBtnEl.addEventListener("click", (event) => {
+      event.stopPropagation(); // since it is inside a parent that has it's own click event
 
-    addBtnEl.addEventListener("click", () => {
       const todoObj = createTodoObj(
         "", // title
         "", // description
@@ -83,12 +85,16 @@ const ProjectList = (activateTabStyle) => {
       appendAndShowModal(taskModalEl);
     });
 
-    editBtnEl.addEventListener("click", () => {
+    editBtnEl.addEventListener("click", (event) => {
+      event.stopPropagation(); // since it is inside a parent that has it's own click event
+
       const projectModalEl = NewProjectModal(projectName);
       appendAndShowModal(projectModalEl);
     });
 
-    deleteBtnEl.addEventListener("click", () => {
+    deleteBtnEl.addEventListener("click", (event) => {
+      event.stopPropagation(); // since it is inside a parent that has it's own click event
+
       deleteProject(projectName);
       dispatchUpdateProjectsEvent();
     });
@@ -104,12 +110,20 @@ const ProjectList = (activateTabStyle) => {
   };
 
   const listWrapperEl = document.createElement("figure");
-  const listTitleEl = document.createElement("figcaption");
+  const listTitleWrapperEl = document.createElement("figcaption");
+  const listTitleEl = document.createElement("h2");
+  const addNewProjectBtnEl = document.createElement("button");
   const listEl = document.createElement("ul");
 
   listEl.classList.add("projects-list");
   listWrapperEl.classList.add("projects-list__wrapper");
+  listTitleWrapperEl.classList.add("projects-list__title-wrapper");
   listTitleEl.classList.add("projects-list__title");
+
+  setElementProps(addNewProjectBtnEl, {
+    title: "add new project",
+    class: "projects-list__add-btn",
+  });
 
   listTitleEl.textContent = "Projects";
 
@@ -133,7 +147,13 @@ const ProjectList = (activateTabStyle) => {
   listenUpdateTodosEvent(reRenderProjectListItems);
   listenUpdateProjectsEvent(reRenderProjectListItems);
 
-  listWrapperEl.append(listTitleEl, listEl);
+  addNewProjectBtnEl.addEventListener("click", () => {
+    appendAndShowModal(NewProjectModal());
+  });
+
+  addNewProjectBtnEl.append();
+  listTitleWrapperEl.append(listTitleEl, addNewProjectBtnEl);
+  listWrapperEl.append(listTitleWrapperEl, listEl);
 
   return listWrapperEl;
 };
