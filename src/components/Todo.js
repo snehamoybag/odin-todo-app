@@ -1,10 +1,6 @@
 import { titleCase, turncateString } from "../scripts/utilities";
-import { getFormatedDueDateAndTime } from "../scripts/dates";
-import {
-  getTodoStatus,
-  deleteTodo,
-  dispatchUpdateTodosEvent,
-} from "../scripts/todos";
+import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
+import TodoDueDate from "./TodoDueDate";
 import NewTaskModal from "./NewTaskModal";
 import TodoDetailsModal from "./TodoDetailsModal";
 import CheckTodo from "./CheckTodo";
@@ -16,7 +12,7 @@ const Todo = (todoObj) => {
   const checkTodoWrapperEl = document.createElement("label");
   const checkTodoEl = CheckTodo(todoObj);
   const todoTitleEl = document.createElement("h2");
-  const todoDueEl = document.createElement("p");
+  const todoDueEl = TodoDueDate(todoObj);
   const priorityEl = document.createElement("p");
   const btnsWrapperEl = document.createElement("div");
   const detailsBtnEl = document.createElement("button");
@@ -45,24 +41,6 @@ const Todo = (todoObj) => {
   detailsBtnEl.textContent = "Details";
   editBtnEl.textContent = "Edit";
   deleteBtnEl.textContent = "Delete";
-
-  let dueElText = "";
-  switch (getTodoStatus(todoObj)) {
-    case "completed":
-      dueElText = "Completed!";
-      break;
-    case "expired":
-      dueElText = `Expired on ${getFormatedDueDateAndTime(
-        todoObj.dueDateTimeStamp
-      )}`;
-      break;
-    default:
-      dueElText = `Due on ${getFormatedDueDateAndTime(
-        todoObj.dueDateTimeStamp
-      )}`;
-      break;
-  }
-  todoDueEl.textContent = dueElText;
 
   detailsBtnEl.addEventListener("click", () => {
     const todoDetailsModalEl = TodoDetailsModal(todoObj);

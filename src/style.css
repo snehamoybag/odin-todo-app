@@ -911,6 +911,22 @@ dialog {
   --bg-url: url(./assets/icon-trash-solid.svg);
 }
 
+.text-normal {
+  color: var(--clr-primary-200);
+}
+
+.text-success {
+  color: var(--clr-success);
+}
+
+.text-warning {
+  color: var(--clr-warning);
+}
+
+.text-danger {
+  color: var(--clr-danger);
+}
+
 .num-bubble {
   --size: 1.25em;
   display: flex;

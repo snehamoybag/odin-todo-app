@@ -1,25 +1,17 @@
-import { getFormatedDueDateAndTime } from "../scripts/dates";
 import { closeAndRemoveModal } from "../scripts/utilities";
 import { deleteTodo, dispatchUpdateTodosEvent } from "../scripts/todos";
+import TodoDueDate from "./TodoDueDate";
 import NewTaskModal from "./NewTaskModal";
 import CheckTodo from "./CheckTodo";
 
 const TodoDetailsModal = (todoObj) => {
+  const { title, description, priority, inProject, isCompleted } = todoObj;
+
   const getSpanEl = (text) => {
     const spanEl = document.createElement("span");
     spanEl.textContent = text;
     return spanEl;
   };
-
-  const {
-    title,
-    description,
-    dueDate,
-    dueTime,
-    priority,
-    inProject,
-    isCompleted,
-  } = todoObj;
 
   const modalEl = document.createElement("dialog");
   const articleEl = document.createElement("article");
@@ -27,7 +19,7 @@ const TodoDetailsModal = (todoObj) => {
   const titleEl = document.createElement("h2");
   const descriptionEl = document.createElement("p");
   const infoWrapperEl = document.createElement("div");
-  const dueDateTimeEl = document.createElement("p");
+  const dueDateTimeEl = TodoDueDate(todoObj);
   const inProjectEl = document.createElement("p");
   const priorityEl = document.createElement("P");
   const completionStatusEl = document.createElement("p");
@@ -51,7 +43,11 @@ const TodoDetailsModal = (todoObj) => {
   descriptionEl.classList.add("modal-todo-details__description");
   infoWrapperEl.classList.add("modal-todo-details__info-wrapper");
   inProjectEl.classList.add("modal-todo-details__info-item", "project");
-  priorityEl.classList.add("modal-todo-details__info-item", "priority");
+  priorityEl.classList.add(
+    "modal-todo-details__info-item",
+    "priority",
+    priority
+  );
   btnsWrapperEl.classList.add("modal-todo-details__btns-wrapper");
   checkTodoWrapperEl.classList.add("modal-todo-details__check-item");
   checkBoxWrapperEl.classList.add("todo-checkbox-wrapper");
@@ -60,23 +56,8 @@ const TodoDetailsModal = (todoObj) => {
   editBtnEl.classList.add("btn", "btn--edit");
   deleteBtnEl.classList.add("btn", "btn--danger");
 
-  switch (priority) {
-    case "low":
-      priorityEl.classList.add("low");
-      break;
-    case "mid":
-      priorityEl.classList.add("mid");
-      break;
-    default:
-      priorityEl.classList.add("high");
-      break;
-  }
-
   titleEl.textContent = title;
   descriptionEl.textContent = description;
-  dueDateTimeEl.textContent = getFormatedDueDateAndTime(
-    Date.parse(`${dueDate} ${dueTime}`)
-  );
   inProjectEl.textContent = "In Project: ";
   priorityEl.textContent = "Priority: ";
   completionStatusEl.textContent = `Status: ${
