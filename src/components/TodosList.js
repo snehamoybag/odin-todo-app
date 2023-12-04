@@ -45,8 +45,8 @@ const generateTodosListEl = (getTodosDataFunc) => {
   };
 
   const renderTodos = () => {
-    getSortedTodos().forEach((todoData) => {
-      listEl.append(Todo(todoData));
+    getSortedTodos().forEach((todoObj) => {
+      listEl.append(Todo(todoObj));
     });
   };
 

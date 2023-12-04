@@ -3,35 +3,7 @@ import { storeAndSyncData } from "./utilities";
 import { getTodayDate, getWeekNumOfYear } from "./dates";
 
 const todosKey = "todos";
-let todos = [
-  {
-    title: "todo 1",
-    description: "bruh",
-    dueDate: "2023-11-21",
-    dueTime: "05:30",
-    priority: "high",
-    inProject: "Project 1",
-    isCompleted: false,
-  },
-  {
-    title: "todo 2",
-    description: "bruh",
-    dueDate: "2023-11-21",
-    dueTime: "06:30",
-    priority: "low",
-    inProject: "Project 2",
-    isCompleted: false,
-  },
-  {
-    title: "todo 3",
-    description: "bruh",
-    dueDate: "2023-11-21",
-    dueTime: "11:30",
-    priority: "mid",
-    inProject: "Project 3",
-    isCompleted: false,
-  },
-];
+let todos = [];
 
 export const createTodoObj = (
   title,
@@ -46,10 +18,21 @@ export const createTodoObj = (
   description,
   dueDate,
   dueTime,
+  dueDateTimeStamp: Date.parse(`${dueDate} ${dueTime}`),
   priority,
   inProject,
   isCompleted,
 });
+
+export const getTodoStatus = (todoObj) => {
+  if (todoObj.isCompleted) return "completed";
+
+  const presentTimeStamp = new Date();
+  const isDueDateOver =
+    compareAsc(todoObj.dueDateTimeStamp, presentTimeStamp) === -1;
+
+  return isDueDateOver ? "expired" : "due";
+};
 
 export const getAllTodos = () => todos;
 
@@ -62,9 +45,7 @@ export const getTodayTodos = () =>
 export const getThisWeekTodo = () =>
   todos.filter((todoObj) => {
     const currentWeekNum = getWeekNumOfYear(new Date());
-    const weekNumOfDueDate = getWeekNumOfYear(
-      Date.parse(`${todoObj.dueDate} ${todoObj.dueTime}`)
-    );
+    const weekNumOfDueDate = getWeekNumOfYear(todoObj.dueDateTimeStamp);
     return weekNumOfDueDate === currentWeekNum;
   });
 
@@ -134,10 +115,7 @@ export const sortDueDate = (todosArr) => {
   const clonedTodosArr = [...todosArr]; // since Array.sort() mutates the original array
 
   return clonedTodosArr.sort((a, b) =>
-    compareAsc(
-      Date.parse(a.dueDate, a.dueTime),
-      Date.parse(b.dueDate, b.dueTime)
-    )
+    compareAsc(a.dueDateTimeStamp, b.dueDateTimeStamp)
   );
 };
 
