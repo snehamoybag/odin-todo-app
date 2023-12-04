@@ -11,11 +11,11 @@ import {
   getTodosByProjectName,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
+import EmptyTodo from "./EmptyTodo";
 import Todo from "./Todo";
 
 const generateTodosListEl = (getTodosDataFunc) => {
   const listEl = document.createElement("ol");
-
   listEl.classList.add("todo-list");
 
   const getSortedTodos = () => {
@@ -45,9 +45,16 @@ const generateTodosListEl = (getTodosDataFunc) => {
   };
 
   const renderTodos = () => {
-    getSortedTodos().forEach((todoObj) => {
-      listEl.append(Todo(todoObj));
-    });
+    const sortedTodos = getSortedTodos();
+    const isTodoListEmpty = sortedTodos.length <= 0;
+
+    if (isTodoListEmpty) {
+      listEl.append(EmptyTodo());
+    } else {
+      getSortedTodos().forEach((todoObj) => {
+        listEl.append(Todo(todoObj));
+      });
+    }
   };
 
   // render with Todo elements when appended to the DOM
