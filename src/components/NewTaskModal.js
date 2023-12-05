@@ -40,12 +40,14 @@ const NewTaskModal = (todoObj = {}) => {
     id: "title",
     name: "todo-title",
     value: title,
+    maxLength: 80,
     required: true,
   });
   const descriptionField = textareaField("Description", {
     id: "description",
     name: "todo-description",
     value: description,
+    maxLength: 900,
     required: true,
   });
 

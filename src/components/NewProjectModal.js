@@ -17,6 +17,7 @@ const NewProjectModal = (inProject = "") => {
     id: projectInputId,
     name: "new-project",
     value: inProject || "",
+    maxLength: 30,
     required: "",
   });
 
