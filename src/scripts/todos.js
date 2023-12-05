@@ -3,7 +3,7 @@ import { storeAndSyncData } from "./utilities";
 import { getTodayDate, getWeekNumOfYear } from "./dates";
 
 const todosKey = "todos";
-let todos = [];
+let todos = JSON.parse(localStorage.getItem(todosKey)) || [];
 
 export const createTodoObj = (
   title,
