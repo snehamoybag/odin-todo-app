@@ -9,6 +9,8 @@ import {
 import {
   createTodoObj,
   getTodosByProjectName,
+  deleteTodosInProject,
+  dispatchUpdateTodosEvent,
   listenUpdateTodosEvent,
 } from "../scripts/todos";
 import SrOnly from "./SrOnly";
@@ -16,6 +18,7 @@ import { getDOMTodoListContainer } from "./TodoListContainer";
 import { todoListInProject } from "./TodosList";
 import NewTaskModal from "./NewTaskModal";
 import NewProjectModal from "./NewProjectModal";
+import WarningModal from "./WarningModal";
 
 const ProjectList = (activateTabStyle) => {
   const appendAndShowModal = (modalEl) => {
@@ -95,8 +98,26 @@ const ProjectList = (activateTabStyle) => {
     deleteBtnEl.addEventListener("click", (event) => {
       event.stopPropagation(); // since it is inside a parent that has it's own click event
 
-      deleteProject(projectName);
-      dispatchUpdateProjectsEvent();
+      const warningProps = {
+        title: "Warning!",
+        description:
+          "Warning: Deleting a project will remove all associated tasks. Are you sure you want to continue?",
+        deleteBtnText: "Yes, Delete!",
+        cancelBtnText: "No, Cancel",
+      };
+
+      const deletProjectAndItsTodos = () => {
+        deleteProject(projectName);
+        deleteTodosInProject(projectName);
+        dispatchUpdateProjectsEvent();
+        dispatchUpdateTodosEvent();
+      };
+
+      const warningModalEl = WarningModal(
+        warningProps,
+        deletProjectAndItsTodos
+      );
+      appendAndShowModal(warningModalEl);
     });
 
     addBtnEl.append(SrOnly("add to project"));

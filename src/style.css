@@ -522,7 +522,8 @@ dialog {
 }
 
 .modal-todo-details::backdrop,
-.modal-new-task::backdrop {
+.modal-new-task::backdrop,
+.modal-warning::backdrop {
   /* custom props not working. --clr-primary-400 is used here */
   background-color: hsl(213, 30%, 32%);
 }
@@ -608,7 +609,8 @@ dialog {
   --clr: var(--clr-danger);
 }
 
-.modal-todo-details__btns-wrapper {
+.modal-todo-details__btns-wrapper,
+.modal-warning__btns-wrapper {
   display: flex;
   align-items: center;
   justify-content: end;
@@ -639,7 +641,9 @@ dialog {
 .modal-new-task__form > .title,
 .modal-new-task__btns-wrapper,
 .modal-new-project__form > .title,
-.modal-new-project__btns-wrapper {
+.modal-new-project__btns-wrapper,
+.modal-warning > .title,
+.modal-warning__btns-wrapper {
   background-color: var(--clr-primary-700);
   padding: 1em 1.5em;
 }
@@ -720,7 +724,8 @@ dialog {
   gap: 0.75rem;
 }
 
-.modal-new-project {
+.modal-new-project,
+.modal-warning {
   width: min(70%, 400px);
   top: 50%;
   left: 50%;
@@ -728,11 +733,21 @@ dialog {
 }
 
 .modal-new-project::backdrop {
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(5px);
 }
 
-.modal-new-project__form > .field-wrapper {
+.modal-new-project__form > .field-wrapper,
+.modal-warning__description {
   padding: 2em;
+}
+
+.modal-warning__description {
+  line-height: 1.6;
+}
+
+.modal-warning__btns-wrapper {
+  justify-content: start;
+  gap: 0.5rem;
 }
 
 .field-wrapper {

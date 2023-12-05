@@ -74,7 +74,7 @@ export const deleteTodo = (deleteTodoObj) => {
 };
 
 export const deleteTodosInProject = (projectName) => {
-  todos.filter((todoObj) => todoObj.inProject !== projectName);
+  todos = todos.filter((todoObj) => todoObj.inProject !== projectName);
   syncTodos();
 };
 
